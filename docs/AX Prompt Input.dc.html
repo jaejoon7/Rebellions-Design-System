@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #F6F8FA; }
+    input::placeholder { color: #9aa3ad; }
+  </style>
+</helmet>
+
+<div style="min-height: 100vh; background: #F6F8FA; font-family: Inter, 'Pretendard Variable', sans-serif; color: #1B1F23;">
+  <div style="max-width: 1000px; margin: 0 auto; padding: 40px 28px 96px;">
+
+    <!-- Header -->
+    <div style="font-size: 11px; font-family: 'Space Mono', monospace; color: #6E7681; letter-spacing: 0.14em; margin-bottom: 12px;">04 — BRAND EXPRESSION · AX PROMPT INPUT</div>
+    <h1 style="font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 12px;">AX Prompt Input</h1>
+    <p style="font-size: 15px; color: #6E7681; line-height: 1.7; margin: 0 0 8px; max-width: 700px;">Describe the expression you want in plain language. The input extracts keywords, matches the closest preset, and drives the cube grid above — rule-based, offline, deterministic.</p>
+    <p style="font-size: 12px; font-family: 'Space Mono', monospace; color: #9aa3ad; margin: 0 0 28px;">UI 시안 3개 비교 · 1a / 1b / 1c — 마음에 드는 안을 알려주시면 디자인 시스템 본 파일에 통합합니다.</p>
+
+    <!-- Sticky live cube -->
+    <div style="position: sticky; top: 0; z-index: 5; padding: 8px 0 14px; background: linear-gradient(#F6F8FA 78%, rgba(246,248,250,0));">
+      <div style="position: relative; border: 0.5px solid #BBC4CF; background: #FFFFFF; overflow: hidden;">
+        <div style="position: absolute; top: 12px; left: 14px; z-index: 2; font-size: 10px; font-family: 'Space Mono', monospace; letter-spacing: 0.14em; color: #1aa31e;">● LIVE PREVIEW</div>
+        <iframe id="axCube" src="uploads/rebellions_Brand_Expression_light.html?hidePanel=1" style="width: 100%; height: 440px; border: none; display: block;"></iframe>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 36px;">
+
+      <!-- ══ 1a — Terminal / Mono ══ -->
+      <section id="1a">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: #1B1F23; border: 1px solid #1B1F23; border-radius: 4px; padding: 2px 8px;">1a</span>
+          <span style="font-size: 14px; font-weight: 600;">Terminal / Mono</span>
+          <span style="font-size: 12px; color: #9aa3ad;">— 기존 컨트롤 패널과 동일한 모노 톤, 커맨드라인 감성</span>
+        </div>
+        <div style="background: #14171A; border: 0.5px solid #2a2f35; border-radius: 8px; padding: 18px 18px 16px;">
+          <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #52F756; letter-spacing: 0.16em; margin-bottom: 12px;">AX_PROMPT://INPUT</div>
+          <div style="display: flex; align-items: center; gap: 10px; border: 0.5px solid #2a4030; background: rgba(82,247,86,0.04); border-radius: 6px; padding: 12px 14px;">
+            <span style="color: #52F756; font-family: 'Space Mono', monospace; font-size: 14px;">&gt;</span>
+            <input id="axInA" onKeyDown="{{ keyA }}" placeholder="describe your expression…  e.g. tall neon towers rising" style="flex: 1; background: transparent; border: none; outline: none; color: #F6F8FA; font-size: 13px; font-family: 'Space Mono', monospace; caret-color: #52F756;">
+            <button onClick="{{ applyA }}" style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #52F756; background: rgba(82,247,86,0.1); border: 0.5px solid #52F756; border-radius: 4px; padding: 8px 18px; cursor: pointer;" style-hover="background: rgba(82,247,86,0.22);">RUN</button>
+          </div>
+          <div style="margin-top: 14px;">
+            <div style="font-size: 11px; font-family: 'Space Mono', monospace; color: #52F756;">// MATCHED → {{ presetLabel }}</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+              <sc-for list="{{ tags }}" as="t" hint-placeholder-count="9">
+                <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #9fb0a2; border: 0.5px solid #2a4030; background: rgba(82,247,86,0.05); padding: 3px 8px; border-radius: 3px;"><span style="color: #52F756;">{{ t.k }}</span> {{ t.v }}</div>
+              </sc-for>
+            </div>
+            <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #5a6470; margin-top: 10px;">{{ matchedLine }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ 1b — Minimal / Light ══ -->
+      <section id="1b">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: #1B1F23; border: 1px solid #1B1F23; border-radius: 4px; padding: 2px 8px;">1b</span>
+          <span style="font-size: 14px; font-weight: 600;">Minimal / Light</span>
+          <span style="font-size: 12px; color: #9aa3ad;">— 밝고 깔끔한 프로덕트 UI, 칩 형태 파라미터</span>
+        </div>
+        <div style="background: #FFFFFF; border: 0.5px solid #BBC4CF; border-radius: 8px; padding: 18px;">
+          <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #6E7681; letter-spacing: 0.16em; margin-bottom: 12px;">AX PROMPT INPUT</div>
+          <div style="display: flex; gap: 10px;">
+            <input id="axInB" onKeyDown="{{ keyB }}" placeholder="Describe the expression you want…" style="flex: 1; background: #F6F8FA; border: 0.5px solid #BBC4CF; border-radius: 8px; padding: 13px 16px; font-size: 14px; font-family: Inter, sans-serif; color: #1B1F23; outline: none;">
+            <button onClick="{{ applyB }}" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 8px; padding: 0 22px; cursor: pointer; white-space: nowrap;" style-hover="background: #24292F;">Generate</button>
+          </div>
+          <div style="margin-top: 16px;">
+            <div style="font-size: 12px; color: #6E7681;">Matched preset · <span style="color: #1B1F23; font-weight: 600;">{{ presetLabel }}</span></div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+              <sc-for list="{{ tags }}" as="t" hint-placeholder-count="9">
+                <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #24292F; border: 0.5px solid #D9E4ED; background: #F6F8FA; padding: 4px 10px; border-radius: 20px;"><span style="color: #1aa31e;">{{ t.k }}</span> {{ t.v }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ 1c — Guided / Chips ══ -->
+      <section id="1c">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+          <span style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: #1B1F23; border: 1px solid #1B1F23; border-radius: 4px; padding: 2px 8px;">1c</span>
+          <span style="font-size: 14px; font-weight: 600;">Guided / Chips</span>
+          <span style="font-size: 12px; color: #9aa3ad;">— 예시 프롬프트 칩으로 시작점을 제시, 발견성 ↑</span>
+        </div>
+        <div style="background: #1B1F23; border: 0.5px solid #2a2f35; border-radius: 8px; padding: 18px;">
+          <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #8a92a0; letter-spacing: 0.16em; margin-bottom: 12px;">AX PROMPT INPUT · GUIDED</div>
+          <div style="display: flex; gap: 10px;">
+            <input id="axInC" onKeyDown="{{ keyC }}" placeholder="Type, or pick a starting point below…" style="flex: 1; background: #14171A; border: 0.5px solid #2a2f35; border-radius: 8px; padding: 13px 16px; font-size: 14px; font-family: Inter, sans-serif; color: #F6F8FA; outline: none;">
+            <button onClick="{{ applyC }}" style="font-size: 13px; font-weight: 600; color: #1B1F23; background: #52F756; border: none; border-radius: 8px; padding: 0 22px; cursor: pointer; white-space: nowrap;" style-hover="background: #6aff6e;">Generate</button>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px;">
+            <sc-for list="{{ examples }}" as="ex" hint-placeholder-count="7">
+              <button onClick="{{ fillExample }}" data-prompt="{{ ex.prompt }}" style="font-size: 11px; font-family: 'Space Mono', monospace; color: #9aa3ad; background: transparent; border: 0.5px solid #2a2f35; border-radius: 20px; padding: 6px 12px; cursor: pointer;" style-hover="border-color: #52F756; color: #52F756;">{{ ex.label }}</button>
+            </sc-for>
+          </div>
+          <div style="margin-top: 16px; border-top: 0.5px solid #2a2f35; padding-top: 14px;">
+            <div style="font-size: 12px; color: #8a92a0;">Matched · <span style="color: #52F756; font-weight: 600;">{{ presetLabel }}</span></div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+              <sc-for list="{{ tags }}" as="t" hint-placeholder-count="9">
+                <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: #bcc6d0; border: 0.5px solid #2a2f35; background: #14171A; padding: 4px 10px; border-radius: 4px;"><span style="color: #52F756;">{{ t.k }}</span> {{ t.v }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { result: null };
+
+  getPresets() {
+    return [
+      { id: 'neon_towers', label: 'Neon Towers',
+        keywords: ['tall','tower','high','rise','rising','growth','grow','skyscraper','vertical','bright','neon','glow','electric','높','타워','네온','빛','상승','성장','수직'],
+        params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, direction: 'up', motion: 'breathe', variation: 95, neon: 8, speed: 45, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 55 } },
+      { id: 'calm_field', label: 'Calm Field',
+        keywords: ['calm','zen','flat','field','minimal','quiet','gentle','soft','subtle','peaceful','ground','low','slow','차분','잔잔','평온','낮','넓','고요','부드','느린','천천'],
+        params: { scale: 14, gridSize: 13, gap: 24, angle: 42, zoom: 92, direction: 'up', motion: 'breathe', variation: 28, neon: 0, speed: 24, lineW: 0, opacity: 88, fillOp: 100, heightBrightness: false, hbRange: 40 } },
+      { id: 'wave_flow', label: 'Wave Flow',
+        keywords: ['wave','flow','flowing','sweep','ripple','ocean','water','diagonal','current','물결','파동','흐름','파도','대각'],
+        params: { scale: 46, gridSize: 13, gap: 8, angle: 32, zoom: 100, direction: 'up', motion: 'wave', variation: 120, neon: 4, speed: 95, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+      { id: 'heartbeat_pulse', label: 'Heartbeat Pulse',
+        keywords: ['pulse','pulsing','heartbeat','beat','radial','center','energy','energetic','alive','throb','fast','맥박','심장','박동','에너지','중심','빠른','빠르'],
+        params: { scale: 50, gridSize: 13, gap: 6, angle: 30, zoom: 108, direction: 'up', motion: 'pulse', variation: 100, neon: 6, speed: 115, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 50 } },
+      { id: 'cascade_rain', label: 'Cascade Rain',
+        keywords: ['cascade','waterfall','fall','falling','rain','drop','stream','descend','down','폭포','비','떨어','하강','아래'],
+        params: { scale: 55, gridSize: 14, gap: 5, angle: 34, zoom: 100, direction: 'up', motion: 'cascade', variation: 140, neon: 3, speed: 85, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 48 } },
+      { id: 'chip_grid', label: 'Chip Grid',
+        keywords: ['chip','grid','circuit','tile','compact','semiconductor','top','topdown','top-down','overhead','plan','dense','packed','칩','격자','회로','조밀','촘촘','반도체'],
+        params: { scale: 8, gridSize: 16, gap: 0, angle: 56, zoom: 122, direction: 'up', motion: 'static', variation: 14, neon: 5, speed: 40, lineW: 0.6, opacity: 92, fillOp: 100, heightBrightness: false, hbRange: 40 } },
+      { id: 'mono_blueprint', label: 'Mono Blueprint',
+        keywords: ['mono','monochrome','clean','simple','line','wireframe','outline','blueprint','technical','sketch','단색','선','와이어','도면','기술','심플'],
+        params: { scale: 32, gridSize: 10, gap: 12, angle: 22, zoom: 96, direction: 'up', motion: 'static', variation: 50, neon: 0, speed: 30, lineW: 0.5, opacity: 80, fillOp: 0, heightBrightness: false, hbRange: 40 } },
+      { id: 'random_organic', label: 'Random Organic',
+        keywords: ['random','chaos','scatter','scattered','mixed','irregular','noise','organic','wild','uneven','rough','terrain','landscape','랜덤','무작위','불규칙','혼돈','거칠','지형'],
+        params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, direction: 'random', motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } }
+    ];
+  }
+
+  makeTags(p) {
+    const tags = [
+      { k: 'MOTION', v: p.motion },
+      { k: 'DIR', v: p.direction },
+      { k: 'GRID', v: p.gridSize + '×' + p.gridSize },
+      { k: 'SCALE', v: p.scale + '%' },
+      { k: 'GAP', v: p.gap + '%' },
+      { k: 'ANGLE', v: p.angle + '°' },
+      { k: 'NEON', v: p.neon + '%' },
+      { k: 'SPEED', v: p.speed + '%' },
+      { k: 'VAR', v: p.variation + '%' }
+    ];
+    if (p.fillOp === 0) tags.push({ k: 'FILL', v: 'wire' });
+    return tags;
+  }
+
+  interpret(text) {
+    const hay = (text || '').toLowerCase();
+    const presets = this.getPresets();
+    let best = null, bestScore = -1, bestMatched = [];
+    for (const pre of presets) {
+      let score = 0; const matched = [];
+      for (const kw of pre.keywords) {
+        if (hay.indexOf(kw) !== -1) { score++; matched.push(kw); }
+      }
+      if (score > bestScore) { bestScore = score; best = pre; bestMatched = matched; }
+    }
+    if (!best || bestScore <= 0) {
+      best = presets[0];
+      return { id: best.id, label: best.label, params: best.params, tags: this.makeTags(best.params), matched: [], empty: true };
+    }
+    return { id: best.id, label: best.label, params: best.params, tags: this.makeTags(best.params), matched: bestMatched, empty: false };
+  }
+
+  postToCube(params) {
+    const f = document.getElementById('axCube');
+    if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true }, '*');
+  }
+
+  runPrompt(text) {
+    const r = this.interpret(text);
+    this.setState({ result: r });
+    this.postToCube(r.params);
+  }
+
+  readInput(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+
+  componentDidMount() {
+    const init = () => {
+      const r = this.interpret('tall neon towers rising growth');
+      this.setState({ result: r });
+      this.postToCube(r.params);
+    };
+    const f = document.getElementById('axCube');
+    if (f) f.addEventListener('load', () => setTimeout(init, 160));
+    this._axInit = setTimeout(init, 1300);
+  }
+
+  componentWillUnmount() { if (this._axInit) clearTimeout(this._axInit); }
+
+  renderVals() {
+    const result = this.state.result || this.interpret('tall neon towers rising growth');
+    const examples = [
+      { label: 'tall neon towers', prompt: 'tall neon towers rising, slow breathe' },
+      { label: 'calm minimal field', prompt: 'calm minimal flat field, quiet' },
+      { label: 'diagonal wave flow', prompt: 'diagonal wave flow across the grid' },
+      { label: 'dense chip grid', prompt: 'dense top-down chip circuit grid' },
+      { label: 'heartbeat pulse', prompt: 'radial heartbeat pulse from center, energetic' },
+      { label: 'random organic', prompt: 'random organic uneven terrain' },
+      { label: 'mono blueprint', prompt: 'minimal monochrome wireframe blueprint' }
+    ];
+    const enter = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.runPrompt(e.currentTarget.value); } };
+    return {
+      presetLabel: result.label,
+      tags: result.tags,
+      matchedLine: result.empty ? '— no keywords matched · showing signature preset' : ('keywords · ' + result.matched.slice(0, 6).join(' · ')),
+      examples,
+      applyA: () => this.runPrompt(this.readInput('axInA')),
+      applyB: () => this.runPrompt(this.readInput('axInB')),
+      applyC: () => this.runPrompt(this.readInput('axInC')),
+      keyA: enter,
+      keyB: enter,
+      keyC: enter,
+      fillExample: (e) => {
+        const p = e.currentTarget.dataset.prompt;
+        const inp = document.getElementById('axInC');
+        if (inp) inp.value = p;
+        this.runPrompt(p);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
