@@ -100,6 +100,7 @@
   <meta name="ext-resource-dependency" content="icons/w/Tuned_w.png">
   <meta name="ext-resource-dependency" content="icons/w/Waste_w.png">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
   <style>
     @font-face { font-family: 'Sohne'; src: url('uploads/Sohne-Extraleicht.otf') format('opentype'); font-weight: 200; font-display: swap; }
@@ -982,100 +983,193 @@
         </sc-if>
 
         <!-- ── Guide Content (always visible) ── -->
-            <!-- ── Typography Guidelines ── -->
+            <!-- ── Typography Guidelines (PPT — Söhne/Pretendard) ── -->
+            <sc-if value="{{ showPptTab }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top: 48px;">
+              <div style="font-size: 22px; font-weight: 600; font-family: Sohne, sans-serif; margin-bottom: 8px;">Typography Guidelines</div>
+              <p style="font-size: 14px; color: var(--text-tertiary); margin: 0 0 24px 0; line-height: 1.6;">Please install the designated brand fonts first for seamless template utilization.<br>Consistently apply the defined font guide to maintain a clear information hierarchy within each slide.</p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0.5px solid var(--border); background: var(--bg-card);">
+                <div style="padding: 16px 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border); padding-top: 10px; padding-bottom: 10px; padding-right: 24px; padding-left: 24px; background-color: #24292f; color: #f6f8fa">
+                  <div style="font-size: 12px; font-family: Space Mono, monospace; color: #f6f8fa; letter-spacing: 0.06em">English</div>
+                </div>
+                <div style="padding: 16px 24px; border-bottom: 0.5px solid var(--border); padding-top: 10px; padding-bottom: 10px; padding-right: 24px; padding-left: 24px; background-color: #24292f; color: #f6f8fa">
+                  <div style="font-size: 12px; font-family: Space Mono, monospace; color: #f6f8fa; letter-spacing: 0.06em">Korean</div>
+                </div>
+
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
+                  <div style="font-family: Sohne, sans-serif; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px">Headline</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Kräftig</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
+                  </div>
+                </div>
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
+                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px">헤드라인</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>SemiBold</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
+                  </div>
+                </div>
+
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
+                  <div style="font-family: Sohne, sans-serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; min-height: 50px">Supporting headline and summary</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500; font-size: 10px;">Name&nbsp;</span>Söhne</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500; font-size: 10px;">Weight&nbsp;</span>Buch</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
+                  </div>
+                </div>
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
+                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 24px; font-weight: 500; margin-bottom: 12px; min-height: 50px">헤드라인을 보조하며 상세 내용을 요약하는 부제목 역할</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Medium</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
+                  </div>
+                </div>
+
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
+                  <div style="font-family: Sohne, sans-serif; font-size: 16px; font-weight: 300; line-height: 1.5; margin-bottom: 12px; min-height: 50px">Used for product descriptions and business overviews.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Leicht, Buch</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
+                  </div>
+                </div>
+                <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
+                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin-bottom: 12px; min-height: 50px">제품 상세 설명, 비즈니스 개요 등 정보 전달을 위한 본문.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Regular</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
+                  </div>
+                </div>
+
+                <div style="padding: 24px; border-right: 0.5px solid var(--border);">
+                  <div style="font-family: Sohne, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px; min-height: 50px">A footnoting approach to include source references and additional notes at the page footer.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Extraleicht</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
+                  </div>
+                </div>
+                <div style="padding: 24px;">
+                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px; min-height: 50px">페이지 하단에 출처 표기나 보충 설명을 덧붙이는 주석 방식</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>ExtraLight</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </sc-if>
+
+            <!-- ── Typography Guidelines (Google Slides — Inter) ── -->
+            <sc-if value="{{ showGslidesTab }}">
             <div style="margin-top: 48px;">
               <div style="font-size: 22px; font-weight: 600; font-family: Sohne, sans-serif; margin-bottom: 8px;">Typography Guidelines</div>
               <p style="font-size: 14px; color: var(--text-tertiary); margin: 0 0 24px 0; line-height: 1.6;">Please install the designated brand fonts first for seamless template utilization.<br>Consistently apply the defined font guide to maintain a clear information hierarchy within each slide.</p>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0.5px solid var(--border); background: var(--bg-card);">
                 <!-- English Column Header -->
-                <div style="padding: 16px 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border); padding-top: 10px; padding-bottom: 10px; padding-right: 24px; padding-left: 24px; background-color: #24292f; color: #f6f8fa">
+                <div style="padding: 10px 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border); background-color: #24292f; color: #f6f8fa">
                   <div style="font-size: 12px; font-family: Space Mono, monospace; color: #f6f8fa; letter-spacing: 0.06em">English</div>
                 </div>
                 <!-- Korean Column Header -->
-                <div style="padding: 16px 24px; border-bottom: 0.5px solid var(--border); padding-top: 10px; padding-bottom: 10px; padding-right: 24px; padding-left: 24px; background-color: #24292f; color: #f6f8fa">
+                <div style="padding: 10px 24px; border-bottom: 0.5px solid var(--border); background-color: #24292f; color: #f6f8fa">
                   <div style="font-size: 12px; font-family: Space Mono, monospace; color: #f6f8fa; letter-spacing: 0.06em">Korean</div>
                 </div>
 
                 <!-- Headline Row -->
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
-                  <div style="font-family: Sohne, sans-serif; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px;">Headline</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Söhne</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Kräftig</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>44 or 32pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>0.9</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px;">Headline</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Bold</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
                   </div>
                 </div>
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
-                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px;">헤드라인</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Pretendard</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>SemiBold</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>44 or 32pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>0.9</div>
+                  <div style="font-family: Inter, Pretendard Variable, sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px;">헤드라인</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Bold</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
                   </div>
                 </div>
 
                 <!-- Supporting Headline Row -->
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
-                  <div style="font-family: Sohne, sans-serif; font-size: 24px; font-weight: 400; margin-bottom: 12px;">Supporting headline and summary</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Söhne</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Buch</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>28 or 24pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>0.9</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 24px; font-weight: 500; margin-bottom: 12px; min-height: 50px;">Supporting headline and summary</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Medium</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
                   </div>
                 </div>
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
-                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 24px; font-weight: 500; margin-bottom: 12px;">헤드라인을 보조하며 상세 내용을 요약하는 부제목 역할</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Pretendard</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Medium</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>28 or 24pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>1.1</div>
+                  <div style="font-family: Inter, Pretendard Variable, sans-serif; font-size: 24px; font-weight: 500; margin-bottom: 12px; min-height: 50px;">헤드라인을 보조하며 상세 내용을 요약하는 부제목 역할</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Medium</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
                   </div>
                 </div>
 
                 <!-- Body Row -->
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
-                  <div style="font-family: Sohne, sans-serif; font-size: 16px; font-weight: 300; line-height: 1.5; margin-bottom: 12px;">Used for product descriptions and business overviews.</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Söhne</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Leicht, Buch</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>20 or 14pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>1.1</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin-bottom: 12px; min-height: 50px;">Used for product descriptions and business overviews.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Regular</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
                   </div>
                 </div>
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
-                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin-bottom: 12px;">제품 상세 설명, 비즈니스 개요 등 정보 전달을 위한 본문.</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Pretendard</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Regular</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>20 or 14pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing<br></span>1.1</div>
+                  <div style="font-family: Inter, Pretendard Variable, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin-bottom: 12px; min-height: 50px;">제품 상세 설명, 비즈니스 개요 등 정보 전달을 위한 본문.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Regular</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
                   </div>
                 </div>
 
                 <!-- Footnote Row -->
                 <div style="padding: 24px; border-right: 0.5px solid var(--border);">
-                  <div style="font-family: Sohne, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px;">A footnoting approach to include source references and additional notes at the page footer.</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Söhne</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>Extraleicht</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>8pt</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 300; line-height: 1.5; margin-bottom: 12px; min-height: 50px;">A footnoting approach to include source references and additional notes at the page footer.</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Light</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
                   </div>
                 </div>
                 <div style="padding: 24px;">
-                  <div style="font-family: Pretendard Variable, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px;">페이지 하단에 출처 표기나 보충 설명을 덧붙이는 주석 방식</div>
-                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 12px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name<br></span>Pretendard</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight<br></span>ExtraLight</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Size<br></span>8pt</div>
+                  <div style="font-family: Inter, Pretendard Variable, sans-serif; font-size: 11px; font-weight: 300; line-height: 1.5; margin-bottom: 12px; min-height: 50px;">페이지 하단에 출처 표기나 보충 설명을 덧붙이는 주석 방식</div>
+                  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary);">
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Inter</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Light</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
                   </div>
                 </div>
               </div>
             </div>
+            </sc-if>
 
             <!-- ── Color Guidelines ── -->
             <div style="margin-top: 48px;">
