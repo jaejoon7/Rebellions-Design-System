@@ -787,7 +787,28 @@
             <div style="font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;">Prompt</div>
             <div style="display: flex; gap: 10px;">
               <input id="axPromptInput" placeholder="e.g. data center, 14×14, more neon   ·   or: chip, top-down" style="flex: 1; background: #F6F8FA; border: 0.5px solid var(--border); border-radius: 0px; padding: 13px 16px; font-size: 14px; font-family: Sohne, Pretendard Variable, sans-serif; color: var(--text-primary); outline: none;">
-              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;">Generate</button>
+              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;" onmouseover="this.style.background='#24292F'" onmouseout="this.style.background='#1B1F23'">Generate</button>
+            </div>
+
+            <!-- Quick-start examples -->
+            <div style="margin-top: 18px;">
+              <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">Examples</div>
+              <div id="axExamplesContainer" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+            </div>
+
+            <!-- Favorites -->
+            <div id="axFavsBlock" style="margin-top: 16px; display: none;">
+              <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">★ Favorites</div>
+              <div id="axFavsContainer" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
+            </div>
+
+            <!-- Recent -->
+            <div id="axRecentBlock" style="margin-top: 16px; display: none;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <div style="font-size: 10px; font-family: 'Space Mono', monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase;">Recent</div>
+                <button id="axClearRecent" style="font-size: 10px; font-family: 'Space Mono', monospace; color: var(--text-tertiary); border: none; background: transparent; cursor: pointer; text-decoration: underline;">clear</button>
+              </div>
+              <div id="axRecentContainer" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
             </div>
 
             <div style="margin-top: 20px; padding-top: 18px; border-top: 0.5px solid var(--border);">
@@ -797,105 +818,6 @@
             </div>
           </div>
         </div>
-
-        <script>
-        (function() {
-          const PRESETS = [
-            { id: 'neon_towers', label: 'Neon Towers', keywords: ['tall','tower','high','rise','rising','growth','grow','vertical','bright','neon','glow','electric','높','타워','네온','빛','상승','성장','수직'], params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, motion: 'breathe', variation: 95, neon: 8, speed: 45, lineW: 0, opacity: 92, fillOp: 100 } },
-            { id: 'calm_field', label: 'Calm Field', keywords: ['calm','zen','flat','field','minimal','quiet','gentle','soft','subtle','peaceful','ground','low','slow','차분','잔잔','평온','낮','고요','부드','느린'], params: { scale: 14, gridSize: 13, gap: 24, angle: 42, zoom: 92, motion: 'breathe', variation: 28, neon: 0, speed: 24, lineW: 0, opacity: 88, fillOp: 100 } },
-            { id: 'wave_flow', label: 'Wave Flow', keywords: ['wave','flow','flowing','sweep','ripple','ocean','water','diagonal','current','물결','파동','흐름','파도','대각'], params: { scale: 46, gridSize: 13, gap: 8, angle: 32, zoom: 100, motion: 'wave', variation: 120, neon: 4, speed: 95, lineW: 0, opacity: 92, fillOp: 100 } },
-            { id: 'heartbeat_pulse', label: 'Heartbeat Pulse', keywords: ['pulse','pulsing','heartbeat','beat','radial','center','energy','energetic','alive','fast','맥박','심장','박동','에너지','중심','빠른'], params: { scale: 50, gridSize: 13, gap: 6, angle: 30, zoom: 108, motion: 'pulse', variation: 100, neon: 6, speed: 115, lineW: 0, opacity: 92, fillOp: 100 } },
-            { id: 'chip_grid', label: 'Chip Grid', keywords: ['chip','grid','circuit','tile','compact','semiconductor','top','topdown','top-down','overhead','dense','packed','칩','격자','회로','조밀','촘촘','반도체'], params: { scale: 8, gridSize: 16, gap: 0, angle: 56, zoom: 122, motion: 'static', variation: 14, neon: 5, speed: 40, lineW: 0.6, opacity: 92, fillOp: 100 } },
-            { id: 'mono_blueprint', label: 'Mono Blueprint', keywords: ['mono','monochrome','clean','simple','line','wireframe','outline','blueprint','technical','sketch','단색','선','와이어','도면','기술','심플'], params: { scale: 32, gridSize: 10, gap: 12, angle: 22, zoom: 96, motion: 'static', variation: 50, neon: 0, speed: 30, lineW: 0.5, opacity: 80, fillOp: 0 } },
-            { id: 'random_organic', label: 'Random Organic', keywords: ['random','chaos','scatter','mixed','irregular','noise','organic','wild','uneven','rough','terrain','랜덤','무작위','불규칙','혼돈','거칠','지형'], params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100 } },
-            { id: 'data_center', label: 'Data Center', keywords: ['data center','datacenter','server','rack','system','card','infrastructure','데이터센터','서버','랙','시스템'], params: { scale: 65, gridSize: 11, gap: 6, angle: 30, zoom: 110, motion: 'breathe', variation: 80, neon: 5, speed: 40, lineW: 0, opacity: 92, fillOp: 100 } }
-          ];
-
-          function interpret(text) {
-            const hay = (text || '').toLowerCase();
-            let best = null, bestScore = -1, bestMatched = [];
-            for (const pre of PRESETS) {
-              let score = 0; const matched = [];
-              for (const kw of pre.keywords) {
-                if (hay.indexOf(kw) !== -1) { score++; matched.push(kw); }
-              }
-              if (score > bestScore) { bestScore = score; best = pre; bestMatched = matched; }
-            }
-            if (!best || bestScore <= 0) {
-              return { label: '—', params: null, tags: [], matched: [], noop: true };
-            }
-            const tags = [
-              { k: 'MOTION', v: best.params.motion },
-              { k: 'GRID', v: best.params.gridSize + '×' + best.params.gridSize },
-              { k: 'SCALE', v: best.params.scale + '%' },
-              { k: 'NEON', v: best.params.neon + '%' },
-              { k: 'SPEED', v: best.params.speed + '%' },
-              { k: 'ANGLE', v: best.params.angle + '°' }
-            ];
-            return { label: best.label, params: best.params, tags, matched: bestMatched, noop: false };
-          }
-
-          function postToCube(params) {
-            const f = document.querySelector('iframe[src*="Brand_Expression"]');
-            if (!f) return;
-            function send() {
-              if (f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true }, '*');
-            }
-            try {
-              if (f.contentDocument && f.contentDocument.readyState === 'complete') {
-                send();
-              } else {
-                f.addEventListener('load', function() { setTimeout(send, 200); }, { once: true });
-                setTimeout(send, 1000);
-              }
-            } catch(e) {
-              setTimeout(send, 500);
-            }
-          }
-
-          function renderResult(r) {
-            document.getElementById('axPresetLabel').textContent = r.label;
-            const container = document.getElementById('axTagsContainer');
-            container.innerHTML = '';
-            r.tags.forEach(t => {
-              const div = document.createElement('div');
-              div.style.cssText = 'font-size: 10px; font-family: Space Mono, monospace; color: var(--text-tertiary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 4px 10px;';
-              div.innerHTML = '<span style="color: var(--text-primary); font-weight: 500;">' + t.k + '</span> ' + t.v;
-              container.appendChild(div);
-            });
-            document.getElementById('axMatchedLine').textContent = r.noop
-              ? 'no recognized keywords · settings unchanged'
-              : 'keywords · ' + r.matched.slice(0, 6).join(' · ');
-          }
-
-          function runPrompt() {
-            const val = document.getElementById('axPromptInput').value;
-            const r = interpret(val);
-            renderResult(r);
-            if (!r.noop && r.params) postToCube(r.params);
-          }
-
-          function attachAxListeners() {
-            const btn = document.getElementById('axGenerateBtn');
-            const inp = document.getElementById('axPromptInput');
-            if (btn && !btn._axBound) {
-              btn.addEventListener('click', runPrompt);
-              btn._axBound = true;
-            }
-            if (inp && !inp._axBound) {
-              inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') runPrompt(); });
-              inp._axBound = true;
-            }
-          }
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', attachAxListeners);
-          } else {
-            attachAxListeners();
-          }
-          setTimeout(attachAxListeners, 800);
-          setTimeout(attachAxListeners, 2000);
-        })();
-        </script>
 
         <!-- Controls Guide -->
         <div style="padding: 0 var(--px) var(--px) var(--px);">
@@ -2647,6 +2569,376 @@ class Component extends DCLogic {
   }
 }
 
+</script>
+
+<!-- ── AX Prompt Input : vanilla JS (GitHub Pages / static-hosting safe) ──
+     sc-engine ({{ }}, <sc-for>, <sc-if>) only renders inside this project's
+     preview runtime (support.js). On plain static hosting (e.g. GitHub
+     Pages) there is no sc-engine, so this section is wired by hand instead.
+     Full preset + rule tables are kept in sync with getAxPresets() /
+     getAxModifiers() / applyAxRules() in the source .dc.html — if those
+     change, update PRESETS / MODIFIERS / CONTEXT_RULES / MOTION_RULES /
+     SCALE_RULES below to match. -->
+<script>
+(function () {
+  var PRESETS = [
+    { id: 'neon_towers', label: 'Neon Towers',
+      keywords: ['tall','tower','high','rise','rising','growth','grow','skyscraper','vertical','bright','neon','glow','electric','높','타워','네온','빛','상승','성장','수직'],
+      params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, direction: 'up', motion: 'breathe', variation: 95, neon: 8, speed: 45, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 55 } },
+    { id: 'calm_field', label: 'Calm Field',
+      keywords: ['calm','zen','flat','field','minimal','quiet','gentle','soft','subtle','peaceful','ground','low','slow','차분','잔잔','평온','낮','넓','고요','부드','느린','천천'],
+      params: { scale: 14, gridSize: 13, gap: 24, angle: 42, zoom: 92, direction: 'up', motion: 'breathe', variation: 28, neon: 0, speed: 24, lineW: 0, opacity: 88, fillOp: 100, heightBrightness: false, hbRange: 45 } },
+    { id: 'wave_flow', label: 'Wave Flow',
+      keywords: ['wave','flow','flowing','sweep','ripple','ocean','water','diagonal','current','물결','파동','흐름','파도','대각'],
+      params: { scale: 46, gridSize: 13, gap: 8, angle: 32, zoom: 100, direction: 'up', motion: 'wave', variation: 120, neon: 4, speed: 95, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'heartbeat_pulse', label: 'Heartbeat Pulse',
+      keywords: ['pulse','pulsing','heartbeat','beat','radial','energy','energetic','alive','throb','맥박','심장','박동','에너지','중심'],
+      params: { scale: 50, gridSize: 13, gap: 6, angle: 30, zoom: 108, direction: 'up', motion: 'pulse', variation: 100, neon: 6, speed: 115, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'cascade_rain', label: 'Cascade Rain',
+      keywords: ['cascade','waterfall','fall','falling','rain','drop','stream','descend','down','폭포','비','떨어','하강','아래'],
+      params: { scale: 55, gridSize: 14, gap: 5, angle: 34, zoom: 100, direction: 'up', motion: 'cascade', variation: 140, neon: 3, speed: 85, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'chip', label: 'Chip',
+      keywords: ['chip','die','soc','npu','circuit','semiconductor','칩','다이','회로','반도체'],
+      params: { scale: 0, gridSize: 2, gap: 30, angle: 20, zoom: 110, direction: 'up', motion: 'static', variation: 12, neon: 12, speed: 30, lineW: 0.6, opacity: 92, fillOp: 100, heightBrightness: false, hbRange: 45 } },
+    { id: 'card', label: 'Card',
+      keywords: ['card','board','pcb','module','accelerator','카드','보드','모듈','가속기'],
+      params: { scale: 35, gridSize: 3, gap: 72, angle: 20, zoom: 105, direction: 'up', motion: 'static', variation: 70, neon: 8, speed: 35, lineW: 0.3, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'server', label: 'Server',
+      keywords: ['server','node','blade','chassis','서버','노드','블레이드','섀시'],
+      params: { scale: 50, gridSize: 4, gap: 71, angle: 20, zoom: 100, direction: 'up', motion: 'static', variation: 95, neon: 7, speed: 40, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'rack', label: 'Rack',
+      keywords: ['rack','rackmount','rack-level','랙','렉','랙마운트'],
+      params: { scale: 100, gridSize: 6, gap: 80, angle: 20, zoom: 100, direction: 'up', motion: 'static', variation: 130, neon: 9, speed: 45, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'datacenter', label: 'Data Center',
+      keywords: ['data center','datacenter','data-center','facility','campus','데이터센터','데이터 센터','센터','전산실'],
+      params: { scale: 100, gridSize: 14, gap: 141, angle: 20, zoom: 90, direction: 'up', motion: 'static', variation: 170, neon: 10, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'system', label: 'System',
+      keywords: ['system','infra','infrastructure','platform','fleet','full-stack','fullstack','시스템','인프라','플랫폼','전체','풀스택'],
+      params: { scale: 100, gridSize: 12, gap: 0, angle: 20, zoom: 100, direction: 'random', motion: 'static', variation: 280, neon: 10, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'mono_blueprint', label: 'Mono Blueprint',
+      keywords: ['mono','monochrome','clean','simple','line','wireframe','outline','blueprint','technical','sketch','단색','선','와이어','도면','기술','심플'],
+      params: { scale: 32, gridSize: 10, gap: 12, angle: 22, zoom: 96, direction: 'up', motion: 'static', variation: 50, neon: 0, speed: 30, lineW: 0.5, opacity: 80, fillOp: 0, heightBrightness: false, hbRange: 45 } },
+    { id: 'random_organic', label: 'Random Organic',
+      keywords: ['random','chaos','scatter','scattered','mixed','irregular','noise','organic','wild','uneven','rough','terrain','landscape','랜덤','무작위','불규칙','혼돈','거칠','지형'],
+      params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, direction: 'random', motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+    { id: 'rebellions_signature', label: 'Rebellions Signature',
+      keywords: ['rebellions','rebellion','리벨리온','브랜드','시그니처','signature','brand'],
+      params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, direction: 'up', motion: 'breathe', variation: 95, neon: 10, speed: 45, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 55 } },
+    { id: 'mood_lamp', label: 'Mood Lamp',
+      keywords: ['mood lamp','mood light','moodlamp','ambient lamp','lamp','mood','무드등','무드 램프','무드라이트','무드','램프','조명','은은한 빛'],
+      params: { scale: 58, gridSize: 11, gap: 16, angle: 30, zoom: 106, direction: 'up', motion: 'breathe', variation: 55, neon: 9, speed: 26, lineW: 0, opacity: 90, fillOp: 100, heightBrightness: true, hbRange: 62 } }
+  ];
+
+  var PRODUCT_IDS = { chip: 1, card: 1, server: 1, rack: 1, datacenter: 1, system: 1 };
+
+  var MODIFIERS = [
+    { keys: ['fast','quick','rapid','energetic','lively','빠','빠른','빠르','활발','역동'], label: 'faster', fn: function (p, I) { p.speed = clamp(p.speed + 70 * I, 0, 200); if (p.motion === 'static') p.motion = 'wave'; } },
+    { keys: ['slow','gentle','calm','relax','chill','느','천천','차분','잔잔','고요'], label: 'slower', fn: function (p, I) { p.speed = clamp(p.speed - 42 * I, 5, 200); } },
+    { keys: ['dense','packed','tight','compact','조밀','촘촘','빽빽','밀집'], label: 'denser', fn: function (p, I) { p.gap = clamp(p.gap - 14 * I, 0, 200); p.gridSize = clamp(p.gridSize + 3 * I, 1, 20); } },
+    { keys: ['sparse','airy','spaced','spread out','loose','성기','듬성','벌어','띄엄'], label: 'sparser', fn: function (p, I) { p.gap = clamp(p.gap + 34 * I, 0, 200); } },
+    { keys: ['tall','high','towering','soaring','높','솟','우뚝'], label: 'taller', fn: function (p, I) { p.scale = clamp(p.scale + 35 * I, 0, 100); p.direction = 'up'; } },
+    { keys: ['low','flat','short','ground','shallow','낮','평평','납작'], label: 'lower', fn: function (p, I) { p.scale = clamp(p.scale - 30 * I, 0, 100); } },
+    { keys: ['big grid','large grid','larger','huge','more cubes','거대','크게','많','넓은 격자'], label: 'bigger grid', fn: function (p, I) { p.gridSize = clamp(p.gridSize + 4 * I, 1, 20); } },
+    { keys: ['small','tiny','fewer','few cubes','작','적게','소수'], label: 'smaller grid', fn: function (p, I) { p.gridSize = clamp(p.gridSize - 4 * I, 1, 20); } },
+    { keys: ['neon','vivid','glow','electric','bright','flashy','네온','형광','빛','밝','화려'], label: '+neon', fn: function (p, I) { p.neon = clamp(p.neon + 5 * I, 0, 15); } },
+    { keys: ['mono','monochrome','no neon','muted','단색','은은','차분한 색','무채'], label: 'no neon', fn: function (p, I) { p.neon = clamp(p.neon - 6 * I, 0, 15); } },
+    { keys: ['top-down','topdown','overhead','top view','plan view','bird','위에서','탑뷰','평면','부감'], label: 'top-down', fn: function (p, I) { p.angle = clamp(p.angle + 18 * I, 10, 60); } },
+    { keys: ['side','profile','low angle','옆','측면','낮은 각'], label: 'side view', fn: function (p, I) { p.angle = clamp(p.angle - 14 * I, 10, 60); } },
+    { keys: ['rising','ascend','upward','상승','위로','올라'], label: 'rising', fn: function (p) { p.direction = 'up'; } },
+    { keys: ['falling','descend','downward','sink','하강','아래로','떨어','내려'], label: 'falling', fn: function (p) { p.direction = 'down'; } },
+    { keys: ['random','scatter','mixed','chaos','irregular','랜덤','무작위','뒤섞','흩','불규칙'], label: 'randomized', fn: function (p) { p.direction = 'random'; } },
+    { keys: ['uneven','varied','rough','jagged','terrain','dramatic','거칠','울퉁','들쭉','다이나믹'], label: '+variation', fn: function (p, I) { p.variation = clamp(p.variation + 80 * I, 0, 300); } },
+    { keys: ['even','uniform','smooth','고른','균일','매끈'], label: 'evened', fn: function (p, I) { p.variation = clamp(p.variation - 50 * I, 0, 300); } },
+    { keys: ['wireframe','outline','line only','wire','no fill','와이어','선만','윤곽','외곽선'], label: 'wireframe', fn: function (p) { p.fillOp = 0; p.lineW = Math.max(p.lineW, 0.5); } },
+    { keys: ['solid','filled','full fill','꽉','채운','채워'], label: 'solid', fn: function (p) { p.fillOp = 100; } },
+    { keys: ['zoom in','closer','close up','macro','확대','가까이','클로즈'], label: 'zoom in', fn: function (p, I) { p.zoom = clamp(p.zoom + 45 * I, 20, 300); } },
+    { keys: ['zoom out','far','wide','distant','overview','축소','멀리','넓게'], label: 'zoom out', fn: function (p, I) { p.zoom = clamp(p.zoom - 45 * I, 20, 300); } },
+    { keys: ['wave','ripple','물결','파동','흐르'], label: 'wave motion', fn: function (p) { p.motion = 'wave'; } },
+    { keys: ['pulse','heartbeat','beat','throb','맥박','박동'], label: 'pulse motion', fn: function (p) { p.motion = 'pulse'; } },
+    { keys: ['cascade','waterfall','폭포','비처럼'], label: 'cascade motion', fn: function (p) { p.motion = 'cascade'; } },
+    { keys: ['breathe','breathing','breath','숨','호흡'], label: 'breathe motion', fn: function (p) { p.motion = 'breathe'; } },
+    { keys: ['static','still','freeze','frozen','정지','멈춤','고정'], label: 'static', fn: function (p) { p.motion = 'static'; } },
+    { keys: ['faded','translucent','옅','반투명','흐릿'], label: 'faded', fn: function (p, I) { p.opacity = clamp(p.opacity - 18 * I, 20, 100); } },
+    { keys: ['crisp','sharp','선명','또렷','clear'], label: 'crisp', fn: function (p) { p.opacity = 100; } },
+    { keys: ['deep','depth','입체','깊'], label: '+depth', fn: function (p, I) { p.heightBrightness = true; p.hbRange = clamp(p.hbRange + 20 * I, 0, 100); } },
+    { keys: ['thick','bold line','굵은','두꺼운 선'], label: 'thicker line', fn: function (p, I) { p.lineW = Math.min(2, (p.lineW || 0) + 0.6 * I); } },
+    { keys: ['thin line','얇은 선','가는 선'], label: 'thinner line', fn: function (p, I) { p.lineW = Math.max(0, (p.lineW || 0) - 0.4 * I); } },
+    { keys: ['dreamy','몽환','환상','신비'], label: 'dreamy', fn: function (p, I) { p.motion = 'breathe'; p.speed = clamp(p.speed - 20 * I, 5, 200); p.neon = clamp(p.neon + 3 * I, 0, 15); p.variation = clamp(p.variation - 30 * I, 0, 300); } },
+    { keys: ['warm','cozy','아늑','포근','따뜻'], label: 'warm glow', fn: function (p, I) { p.neon = clamp(p.neon + 3 * I, 0, 15); p.speed = clamp(p.speed - 18 * I, 5, 200); if (p.motion === 'static') p.motion = 'breathe'; } }
+  ];
+
+  var CONTEXT_RULES = [
+    { keys: ['신뢰','안정','차분','미팅','비즈니스','trust','stable','calm','meeting','business'], neon: 1, tag: 'neon 1 · calm' },
+    { keys: ['에너지','강렬','파워','역동','energy','intense','power','dynamic'], neon: 8, tag: 'neon 8 · bold' },
+    { keys: ['기본','오리지널','default','original'], neon: 2, tag: 'neon 2 · default' }
+  ];
+  var MOTION_RULES = [
+    { keys: ['웨이브','바다','흐름','wave','ocean','flow'], motion: 'wave', speed: 30, tag: 'wave · spd 30' },
+    { keys: ['호흡','라이브','은은','breathe','breathing','live','ambient'], motion: 'breathe', speed: 50, tag: 'breathe · spd 50' },
+    { keys: ['정적','멈춤','스틸','인쇄','static','still','freeze','print'], motion: 'static', tag: 'static' },
+    { keys: ['펄스','비트','심장','pulse','beat','heartbeat'], motion: 'pulse', speed: 80, tag: 'pulse · spd 80' }
+  ];
+  var SCALE_RULES = [
+    { keys: ['웅장','타워','거대한','랙','grand','massive','tower','rack','colossal'], scale: 80, zoom: 130, tag: 'scale 80 · zoom 130' },
+    { keys: ['칩','정밀','미세','chip','precise','fine','micro'], scale: 10, gridSize: 14, tag: 'scale 10 · grid 14' }
+  ];
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, Math.round(v))); }
+
+  function matchAxKey(hay, kw) {
+    // Korean / non-ASCII keywords: substring match (no reliable word boundaries)
+    if (/[^\x00-\x7f]/.test(kw)) return hay.indexOf(kw) !== -1;
+    // ASCII keywords: word-boundary match so 'low' doesn't fire inside 'slower' / 'glow' / 'flow'.
+    var esc = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('(^|[^a-z0-9])' + esc).test(hay);
+  }
+
+  function pickRule(hay, rules) {
+    var bestPos = -1, bestRule = null;
+    for (var i = 0; i < rules.length; i++) {
+      var r = rules[i], pos = -1;
+      for (var j = 0; j < r.keys.length; j++) {
+        var k = r.keys[j];
+        if (matchAxKey(hay, k)) { var idx = hay.lastIndexOf(k); if (idx > pos) pos = idx; }
+      }
+      if (pos >= 0 && pos > bestPos) { bestPos = pos; bestRule = r; }
+    }
+    return bestRule;
+  }
+
+  function applyAxRules(hay) {
+    var over = {}, tags = [], matched = false;
+    var ctx = pickRule(hay, CONTEXT_RULES);
+    if (ctx) { over.neon = ctx.neon; tags.push(ctx.tag); matched = true; }
+    var mo = pickRule(hay, MOTION_RULES);
+    if (mo) { over.motion = mo.motion; if (mo.speed != null) over.speed = mo.speed; tags.push(mo.tag); matched = true; }
+    var sc = pickRule(hay, SCALE_RULES);
+    if (sc) { over.scale = sc.scale; if (sc.zoom != null) over.zoom = sc.zoom; if (sc.gridSize != null) over.gridSize = sc.gridSize; tags.push(sc.tag); matched = true; }
+    return { over: over, tags: tags, matched: matched, play: matched };
+  }
+
+  function makeAxTags(p) {
+    var tags = [];
+    if (p.cubeCount != null) tags.push({ k: 'COUNT', v: p.cubeCount + ' cubes' });
+    if (p.motion) tags.push({ k: 'MOTION', v: p.motion });
+    if (p.direction) tags.push({ k: 'DIR', v: p.direction });
+    if (p.gridSize != null) tags.push({ k: 'GRID', v: p.gridSize + '×' + p.gridSize });
+    if (p.scale != null) tags.push({ k: 'SCALE', v: p.scale + '%' });
+    if (p.gap != null) tags.push({ k: 'GAP', v: p.gap + '%' });
+    if (p.angle != null) tags.push({ k: 'ANGLE', v: p.angle + '°' });
+    if (p.neon != null) tags.push({ k: 'NEON', v: p.neon + '%' });
+    if (p.speed != null) tags.push({ k: 'SPEED', v: p.speed + '%' });
+    if (p.variation != null) tags.push({ k: 'VAR', v: p.variation + '%' });
+    if (p.fillOp === 0) tags.push({ k: 'FILL', v: 'wire' });
+    return tags;
+  }
+
+  function interpretAx(text) {
+    var hay = (text || '').toLowerCase();
+    var best = null, bestScore = -1, bestMatched = [];
+    for (var i = 0; i < PRESETS.length; i++) {
+      var pre = PRESETS[i], score = 0, matched = [];
+      for (var j = 0; j < pre.keywords.length; j++) {
+        if (matchAxKey(hay, pre.keywords[j])) { score++; matched.push(pre.keywords[j]); }
+      }
+      var total = score > 0 ? score + (PRODUCT_IDS[pre.id] ? 0.6 : 0) : 0;
+      if (total > bestScore) { bestScore = total; best = pre; bestMatched = matched; }
+    }
+
+    var hasPreset = bestScore > 0;
+    var neutral = { scale: 40, gridSize: 11, gap: 10, angle: 30, zoom: 100, direction: 'up', motion: 'breathe', variation: 70, neon: 3, speed: 55, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 };
+    var params = Object.assign({}, hasPreset ? best.params : neutral);
+
+    var I = 1;
+    if (/(very|really|extremely|super|아주|매우|엄청|훨씬|완전|진짜)/.test(hay)) I = 1.7;
+    else if (/(slightly|a bit|a little|\blittle\b|살짝|조금|약간|다소)/.test(hay)) I = 0.55;
+
+    var mods = [];
+    for (var m = 0; m < MODIFIERS.length; m++) {
+      var mod = MODIFIERS[m];
+      if (mod.keys.some(function (k) { return matchAxKey(hay, k); })) { mod.fn(params, I); mods.push(mod.label); }
+    }
+
+    var numOver = {}, numTags = [], nm;
+    if ((nm = hay.match(/(\d+)\s*[x×]\s*\d+/)) || (nm = hay.match(/(?:grid|격자)\s*(\d+)/)) || (nm = hay.match(/(\d+)\s*(?:columns?|cols?|rows?)/))) {
+      var n = +nm[1]; if (n) { numOver.gridSize = clamp(n, 1, 20); numOver.cubeCount = null; numTags.push('grid ' + numOver.gridSize); }
+    } else if ((nm = hay.match(/(\d+)\s*(?:개|cubes?|cube|tiles?|칸|블록|blocks?)/))) {
+      var n2 = clamp(+nm[1], 1, 400); numOver.cubeCount = n2; numOver.gridSize = clamp(Math.ceil(Math.sqrt(n2)), 1, 20); numTags.push(n2 + ' cubes');
+    }
+    if ((nm = hay.match(/(?:gap|spacing|간격)\s*(\d+)/)) || (nm = hay.match(/(\d+)\s*%?\s*(?:gap|spacing|간격)/))) {
+      var ng = +nm[1]; if (!isNaN(ng)) { numOver.gap = clamp(ng, 0, 200); numTags.push('gap ' + numOver.gap + '%'); }
+    }
+    var numMatched = numTags.length > 0;
+
+    if (hasPreset && best.id === 'system' && numOver.gridSize == null) {
+      params.gridSize = 4 + Math.floor(Math.random() * 13);
+    }
+
+    var rule = applyAxRules(hay);
+
+    if (hasPreset || mods.length > 0) {
+      Object.assign(params, numOver, rule.over);
+      if (!('cubeCount' in numOver)) params.cubeCount = null;
+      var allMods = mods.concat(numTags, rule.tags);
+      var label = hasPreset ? (allMods.length ? best.label + ' +' : best.label) : 'Custom';
+      return { id: hasPreset ? best.id : 'custom', label: label, params: params, tags: makeAxTags(params), matched: bestMatched, mods: allMods, empty: false, partial: false, play: rule.play };
+    }
+
+    if (numMatched || rule.matched) {
+      var pp = Object.assign({}, numOver, rule.over);
+      return { id: 'tune', label: 'Tune', params: pp, tags: makeAxTags(pp), matched: [], mods: numTags.concat(rule.tags), empty: false, partial: true, play: rule.play };
+    }
+
+    return { id: 'noop', label: '—', params: null, tags: [], matched: [], mods: [], empty: true, noop: true, partial: false, play: false };
+  }
+
+  function postAxToCube(params, reseed, play) {
+    var f = document.querySelector('iframe[src*="Brand_Expression"]');
+    if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params: params, animate: true, reseed: !!reseed, play: !!play }, '*');
+  }
+
+  function renderAxResult(r) {
+    var labelEl = document.getElementById('axPresetLabel');
+    var tagsEl = document.getElementById('axTagsContainer');
+    var lineEl = document.getElementById('axMatchedLine');
+    if (!labelEl || !tagsEl || !lineEl) return;
+
+    labelEl.textContent = r.label;
+    tagsEl.innerHTML = '';
+    r.tags.forEach(function (t) {
+      var chip = document.createElement('div');
+      chip.style.cssText = 'font-size: 10px; font-family: "Space Mono", monospace; color: var(--text-tertiary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 4px 10px;';
+      var k = document.createElement('span');
+      k.style.cssText = 'color: var(--text-primary); font-weight: 500;';
+      k.textContent = t.k;
+      chip.appendChild(k);
+      chip.appendChild(document.createTextNode(' ' + t.v));
+      tagsEl.appendChild(chip);
+    });
+    lineEl.textContent = r.noop
+      ? 'no recognized keywords · settings unchanged'
+      : (r.mods && r.mods.length ? ('adjustments · ' + r.mods.join(' · ')) : ('keywords · ' + r.matched.slice(0, 6).join(' · ')));
+  }
+
+  function runAxPrompt(text) {
+    var r = interpretAx(text);
+    renderAxResult(r);
+    if (r.noop) return;
+    addRecent(text);
+    postAxToCube(r.params, !r.partial, r.play);
+  }
+
+  // ── Examples + saved prompts (localStorage) ──
+  var EXAMPLES = ['리벨리온 무드등', 'data center, 14×14, more neon', 'chip, top-down', '웅장한 타워, 네온', '차분한 필드, 정적', 'wave flow, faster'];
+
+  function loadAx(key, def) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch (e) { return def; } }
+  function saveAx(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+  function addRecent(text) {
+    text = (text || '').trim(); if (!text) return;
+    var r = loadAx('rbln-ax-recent', []).filter(function (x) { return x !== text; });
+    r.unshift(text); r = r.slice(0, 6);
+    saveAx('rbln-ax-recent', r); renderSaved();
+  }
+  function toggleFav(text) {
+    text = (text || '').trim(); if (!text) return;
+    var f = loadAx('rbln-ax-favs', []);
+    f = f.indexOf(text) >= 0 ? f.filter(function (x) { return x !== text; }) : [text].concat(f).slice(0, 12);
+    saveAx('rbln-ax-favs', f); renderSaved();
+  }
+
+  function makeChip(text, run) {
+    var b = document.createElement('button');
+    b.setAttribute(run ? 'data-ax-run' : 'data-ax-example', text);
+    b.textContent = text;
+    b.style.cssText = 'font-size: 12px; font-family: Sohne, "Pretendard Variable", sans-serif; color: var(--text-secondary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 6px 12px; cursor: pointer;';
+    return b;
+  }
+  function makeSavedChip(text, filled) {
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'display: inline-flex; align-items: center; border: 0.5px solid var(--border); background: #F6F8FA;';
+    var run = document.createElement('button');
+    run.setAttribute('data-ax-run', text);
+    run.textContent = text;
+    run.style.cssText = 'font-size: 12px; font-family: Sohne, "Pretendard Variable", sans-serif; color: var(--text-secondary); border: none; background: transparent; padding: 6px 4px 6px 12px; cursor: pointer;';
+    var star = document.createElement('button');
+    star.setAttribute('data-ax-fav', text);
+    star.textContent = filled ? '★' : '☆';
+    star.title = filled ? 'Remove from favorites' : 'Add to favorites';
+    star.style.cssText = 'font-size: 12px; color: #F5A623; border: none; background: transparent; padding: 6px 10px 6px 4px; cursor: pointer;';
+    wrap.appendChild(run); wrap.appendChild(star);
+    return wrap;
+  }
+
+  function renderExamples() {
+    var ex = document.getElementById('axExamplesContainer');
+    if (!ex) return;
+    ex.innerHTML = '';
+    EXAMPLES.forEach(function (t) { ex.appendChild(makeChip(t, false)); });
+  }
+  function renderSaved() {
+    var favArr = loadAx('rbln-ax-favs', []);
+    var recentArr = loadAx('rbln-ax-recent', []);
+    var favSet = {}; favArr.forEach(function (t) { favSet[t] = 1; });
+    var favBlock = document.getElementById('axFavsBlock');
+    var favC = document.getElementById('axFavsContainer');
+    if (favBlock && favC) {
+      favC.innerHTML = '';
+      favArr.forEach(function (t) { favC.appendChild(makeSavedChip(t, true)); });
+      favBlock.style.display = favArr.length ? 'block' : 'none';
+    }
+    var recBlock = document.getElementById('axRecentBlock');
+    var recC = document.getElementById('axRecentContainer');
+    if (recBlock && recC) {
+      recC.innerHTML = '';
+      recentArr.forEach(function (t) { recC.appendChild(makeSavedChip(t, !!favSet[t])); });
+      recBlock.style.display = recentArr.length ? 'block' : 'none';
+    }
+  }
+  function renderAll() { renderExamples(); renderSaved(); }
+
+  // Delegated listeners on `document` instead of binding directly to the
+  // input/button nodes. This matters because on static hosting the AX
+  // section can land in the DOM slightly after this script runs, AND
+  // (separately) inside this project's own preview the DC engine may
+  // re-render/replace these exact nodes after mount — a direct
+  // addEventListener on the original node would then go stale silently
+  // (no error, listener just never fires again). Delegation re-looks-up
+  // the element fresh on every event, so it keeps working no matter how
+  // many times the underlying node gets swapped, on either host.
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var gen = e.target.closest('#axGenerateBtn');
+    if (gen) { var input = document.getElementById('axPromptInput'); if (input) runAxPrompt(input.value); return; }
+    var clr = e.target.closest('#axClearRecent');
+    if (clr) { saveAx('rbln-ax-recent', []); renderSaved(); return; }
+    var fav = e.target.closest('[data-ax-fav]');
+    if (fav) { e.stopPropagation(); toggleFav(fav.getAttribute('data-ax-fav')); return; }
+    var run = e.target.closest('[data-ax-run], [data-ax-example]');
+    if (run) {
+      var t = run.getAttribute('data-ax-run') || run.getAttribute('data-ax-example');
+      var inp = document.getElementById('axPromptInput');
+      if (inp) inp.value = t;
+      runAxPrompt(t);
+      return;
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var input = e.target.closest && e.target.closest('#axPromptInput');
+    if (!input) return;
+    e.preventDefault();
+    runAxPrompt(input.value);
+  });
+
+  // Initial render + re-render if the DC engine (project preview only) swaps
+  // out the containers and empties them. On static hosting this fires once.
+  renderAll();
+  var axObs = new MutationObserver(function () {
+    var ex = document.getElementById('axExamplesContainer');
+    if (ex && ex.children.length === 0) renderAll();
+  });
+  axObs.observe(document.documentElement, { childList: true, subtree: true });
+})();
 </script>
 </body>
 </html>
