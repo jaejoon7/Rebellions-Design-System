@@ -862,12 +862,25 @@
             if (!r.noop && r.params) postToCube(r.params);
           }
 
-          document.addEventListener('DOMContentLoaded', function() {
+          function attachAxListeners() {
             const btn = document.getElementById('axGenerateBtn');
             const inp = document.getElementById('axPromptInput');
-            if (btn) btn.addEventListener('click', runPrompt);
-            if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') runPrompt(); });
-          });
+            if (btn && !btn._axBound) {
+              btn.addEventListener('click', runPrompt);
+              btn._axBound = true;
+            }
+            if (inp && !inp._axBound) {
+              inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') runPrompt(); });
+              inp._axBound = true;
+            }
+          }
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', attachAxListeners);
+          } else {
+            attachAxListeners();
+          }
+          setTimeout(attachAxListeners, 800);
+          setTimeout(attachAxListeners, 2000);
         })();
         </script>
 
