@@ -2331,7 +2331,10 @@ class Component extends DCLogic {
         params: { scale: 32, gridSize: 10, gap: 12, angle: 22, zoom: 96, direction: 'up', motion: 'static', variation: 50, neon: 0, speed: 30, lineW: 0.5, opacity: 80, fillOp: 0, heightBrightness: false, hbRange: 40 } },
       { id: 'random_organic', label: 'Random Organic',
         keywords: ['random','chaos','scatter','scattered','mixed','irregular','noise','organic','wild','uneven','rough','terrain','landscape','랜덤','무작위','불규칙','혼돈','거칠','지형'],
-        params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, direction: 'random', motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } }
+        params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, direction: 'random', motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 45 } },
+      { id: 'rebellions_signature', label: 'Rebellions Signature',
+        keywords: ['rebellions','rebellion','리벨리온','브랜드','시그니처','signature','brand'],
+        params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, direction: 'up', motion: 'breathe', variation: 95, neon: 10, speed: 45, lineW: 0, opacity: 92, fillOp: 100, heightBrightness: true, hbRange: 55 } }
     ];
   }
 
@@ -2476,7 +2479,7 @@ class Component extends DCLogic {
     const ctx = pick([
       { keys: ['신뢰','안정','차분','미팅','비즈니스','trust','stable','calm','meeting','business'], neon: 1, tag: 'neon 1 · calm' },
       { keys: ['에너지','강렬','파워','역동','energy','intense','power','dynamic'], neon: 8, tag: 'neon 8 · bold' },
-      { keys: ['기본','리벨리온','오리지널','default','rebellion','rebellions','original'], neon: 2, tag: 'neon 2 · default' }
+      { keys: ['기본','오리지널','default','original'], neon: 2, tag: 'neon 2 · default' }
     ]);
     if (ctx) { over.neon = ctx.neon; tags.push(ctx.tag); matched = true; }
     // Motion → motion + speed (KO + EN)
