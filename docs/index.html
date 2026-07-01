@@ -786,21 +786,90 @@
           <div style="border: 0.5px solid var(--border); background: var(--bg-card); padding: 24px;">
             <div style="font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;">Prompt</div>
             <div style="display: flex; gap: 10px;">
-              <input id="axPromptInput" onKeyDown="{{ keyAx }}" placeholder="e.g. data center, 14×14, more neon   ·   or: chip, top-down" style="flex: 1; background: #F6F8FA; border: 0.5px solid var(--border); border-radius: 0px; padding: 13px 16px; font-size: 14px; font-family: Sohne, Pretendard Variable, sans-serif; color: var(--text-primary); outline: none;">
-              <button onClick="{{ applyAx }}" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;" style-hover="background: #24292F;">Generate</button>
+              <input id="axPromptInput" placeholder="e.g. data center, 14×14, more neon   ·   or: chip, top-down" style="flex: 1; background: #F6F8FA; border: 0.5px solid var(--border); border-radius: 0px; padding: 13px 16px; font-size: 14px; font-family: Sohne, Pretendard Variable, sans-serif; color: var(--text-primary); outline: none;">
+              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;">Generate</button>
             </div>
 
             <div style="margin-top: 20px; padding-top: 18px; border-top: 0.5px solid var(--border);">
-              <div style="font-size: 12px; color: var(--text-tertiary);">Matched preset&nbsp;·&nbsp;<span style="color: var(--text-primary); font-weight: 600;">{{ axPresetLabel }}</span></div>
-              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;">
-                <sc-for list="{{ axTags }}" as="t" hint-placeholder-count="9">
-                  <div style="font-size: 10px; font-family: Space Mono, monospace; color: var(--text-tertiary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 4px 10px;"><span style="color: var(--text-primary); font-weight: 500;">{{ t.k }}</span> {{ t.v }}</div>
-                </sc-for>
-              </div>
-              <div style="font-size: 10px; font-family: Space Mono, monospace; color: var(--text-tertiary); margin-top: 12px;">{{ axMatchedLine }}</div>
+              <div style="font-size: 12px; color: var(--text-tertiary);">Matched preset&nbsp;·&nbsp;<span id="axPresetLabel" style="color: var(--text-primary); font-weight: 600;">—</span></div>
+              <div id="axTagsContainer" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;"></div>
+              <div id="axMatchedLine" style="font-size: 10px; font-family: Space Mono, monospace; color: var(--text-tertiary); margin-top: 12px;">Type a prompt and press Generate to drive the grid above.</div>
             </div>
           </div>
         </div>
+
+        <script>
+        (function() {
+          const PRESETS = [
+            { id: 'neon_towers', label: 'Neon Towers', keywords: ['tall','tower','high','rise','rising','growth','grow','vertical','bright','neon','glow','electric','높','타워','네온','빛','상승','성장','수직'], params: { scale: 88, gridSize: 9, gap: 12, angle: 28, zoom: 115, motion: 'breathe', variation: 95, neon: 8, speed: 45, lineW: 0, opacity: 92, fillOp: 100 } },
+            { id: 'calm_field', label: 'Calm Field', keywords: ['calm','zen','flat','field','minimal','quiet','gentle','soft','subtle','peaceful','ground','low','slow','차분','잔잔','평온','낮','고요','부드','느린'], params: { scale: 14, gridSize: 13, gap: 24, angle: 42, zoom: 92, motion: 'breathe', variation: 28, neon: 0, speed: 24, lineW: 0, opacity: 88, fillOp: 100 } },
+            { id: 'wave_flow', label: 'Wave Flow', keywords: ['wave','flow','flowing','sweep','ripple','ocean','water','diagonal','current','물결','파동','흐름','파도','대각'], params: { scale: 46, gridSize: 13, gap: 8, angle: 32, zoom: 100, motion: 'wave', variation: 120, neon: 4, speed: 95, lineW: 0, opacity: 92, fillOp: 100 } },
+            { id: 'heartbeat_pulse', label: 'Heartbeat Pulse', keywords: ['pulse','pulsing','heartbeat','beat','radial','center','energy','energetic','alive','fast','맥박','심장','박동','에너지','중심','빠른'], params: { scale: 50, gridSize: 13, gap: 6, angle: 30, zoom: 108, motion: 'pulse', variation: 100, neon: 6, speed: 115, lineW: 0, opacity: 92, fillOp: 100 } },
+            { id: 'chip_grid', label: 'Chip Grid', keywords: ['chip','grid','circuit','tile','compact','semiconductor','top','topdown','top-down','overhead','dense','packed','칩','격자','회로','조밀','촘촘','반도체'], params: { scale: 8, gridSize: 16, gap: 0, angle: 56, zoom: 122, motion: 'static', variation: 14, neon: 5, speed: 40, lineW: 0.6, opacity: 92, fillOp: 100 } },
+            { id: 'mono_blueprint', label: 'Mono Blueprint', keywords: ['mono','monochrome','clean','simple','line','wireframe','outline','blueprint','technical','sketch','단색','선','와이어','도면','기술','심플'], params: { scale: 32, gridSize: 10, gap: 12, angle: 22, zoom: 96, motion: 'static', variation: 50, neon: 0, speed: 30, lineW: 0.5, opacity: 80, fillOp: 0 } },
+            { id: 'random_organic', label: 'Random Organic', keywords: ['random','chaos','scatter','mixed','irregular','noise','organic','wild','uneven','rough','terrain','랜덤','무작위','불규칙','혼돈','거칠','지형'], params: { scale: 42, gridSize: 12, gap: 10, angle: 30, zoom: 100, motion: 'breathe', variation: 200, neon: 5, speed: 60, lineW: 0, opacity: 92, fillOp: 100 } },
+            { id: 'data_center', label: 'Data Center', keywords: ['data center','datacenter','server','rack','system','card','infrastructure','데이터센터','서버','랙','시스템'], params: { scale: 65, gridSize: 11, gap: 6, angle: 30, zoom: 110, motion: 'breathe', variation: 80, neon: 5, speed: 40, lineW: 0, opacity: 92, fillOp: 100 } }
+          ];
+
+          function interpret(text) {
+            const hay = (text || '').toLowerCase();
+            let best = null, bestScore = -1, bestMatched = [];
+            for (const pre of PRESETS) {
+              let score = 0; const matched = [];
+              for (const kw of pre.keywords) {
+                if (hay.indexOf(kw) !== -1) { score++; matched.push(kw); }
+              }
+              if (score > bestScore) { bestScore = score; best = pre; bestMatched = matched; }
+            }
+            if (!best || bestScore <= 0) {
+              return { label: '—', params: null, tags: [], matched: [], noop: true };
+            }
+            const tags = [
+              { k: 'MOTION', v: best.params.motion },
+              { k: 'GRID', v: best.params.gridSize + '×' + best.params.gridSize },
+              { k: 'SCALE', v: best.params.scale + '%' },
+              { k: 'NEON', v: best.params.neon + '%' },
+              { k: 'SPEED', v: best.params.speed + '%' },
+              { k: 'ANGLE', v: best.params.angle + '°' }
+            ];
+            return { label: best.label, params: best.params, tags, matched: bestMatched, noop: false };
+          }
+
+          function postToCube(params) {
+            const f = document.querySelector('iframe[src*="Brand_Expression"]');
+            if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true }, '*');
+          }
+
+          function renderResult(r) {
+            document.getElementById('axPresetLabel').textContent = r.label;
+            const container = document.getElementById('axTagsContainer');
+            container.innerHTML = '';
+            r.tags.forEach(t => {
+              const div = document.createElement('div');
+              div.style.cssText = 'font-size: 10px; font-family: Space Mono, monospace; color: var(--text-tertiary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 4px 10px;';
+              div.innerHTML = '<span style="color: var(--text-primary); font-weight: 500;">' + t.k + '</span> ' + t.v;
+              container.appendChild(div);
+            });
+            document.getElementById('axMatchedLine').textContent = r.noop
+              ? 'no recognized keywords · settings unchanged'
+              : 'keywords · ' + r.matched.slice(0, 6).join(' · ');
+          }
+
+          function runPrompt() {
+            const val = document.getElementById('axPromptInput').value;
+            const r = interpret(val);
+            renderResult(r);
+            if (!r.noop && r.params) postToCube(r.params);
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('axGenerateBtn');
+            const inp = document.getElementById('axPromptInput');
+            if (btn) btn.addEventListener('click', runPrompt);
+            if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') runPrompt(); });
+          });
+        })();
+        </script>
 
         <!-- Controls Guide -->
         <div style="padding: 0 var(--px) var(--px) var(--px);">
