@@ -837,7 +837,20 @@
 
           function postToCube(params) {
             const f = document.querySelector('iframe[src*="Brand_Expression"]');
-            if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true }, '*');
+            if (!f) return;
+            function send() {
+              if (f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true }, '*');
+            }
+            try {
+              if (f.contentDocument && f.contentDocument.readyState === 'complete') {
+                send();
+              } else {
+                f.addEventListener('load', function() { setTimeout(send, 200); }, { once: true });
+                setTimeout(send, 1000);
+              }
+            } catch(e) {
+              setTimeout(send, 500);
+            }
           }
 
           function renderResult(r) {
