@@ -116,6 +116,18 @@ Brand Expression</span>
       <button class="btn" data-mo="static">Static</button>
     </div>
 
+    <div class="sec">SHAPE</div>
+    <div class="btn-row" id="shapes">
+      <button class="btn on" data-sh="grid">Grid</button>
+      <button class="btn" data-sh="sphere">Sphere</button>
+      <button class="btn" data-sh="dome">Dome</button>
+      <button class="btn" data-sh="pyramid">Pyramid</button>
+      <button class="btn" data-sh="valley">Valley</button>
+      <button class="btn" data-sh="wave">Wave</button>
+      <button class="btn" data-sh="spiral">Spiral</button>
+      <button class="btn" data-sh="arch">Arch</button>
+    </div>
+
     <div class="sec">STYLE</div>
     <div class="row"><label>Variation</label><input type="range" id="variation" min="0" max="300" step="1" value="60"><span class="val" id="v-variation" style="width: 25px">60%</span></div>
     <div class="row"><label>Neon</label><input type="range" id="neon" min="0" max="15" step="0.5" value="2"><span class="val" id="v-neon" style="width: 25px">2%</span></div>
@@ -163,6 +175,7 @@ let sinA = Math.sin(30 * Math.PI / 180);
 let theme = 'dark';
 let motion = 'breathe';
 let direction = 'up';
+let shape = 'grid'; // 'grid' = flat cube grid (default). Other values sculpt the grid into a silhouette.
 let playing = false;
 let time = 0;
 let seed = 1234;
@@ -254,8 +267,62 @@ function calcCubeSize(p) {
   return Math.min((W * margin) / Math.max(footprintW, 1.5), (H * margin) / Math.max(footprintH, 1.5)) * zoomLevel;
 }
 
+// ── Shape silhouettes ───────────────────────────────────────────────────────
+// Returns a 0..1 (or slightly negative near edges) target-height factor for the
+// given cell, describing where this cell sits on the chosen silhouette. Returns
+// null for 'grid' (no silhouette — falls back to the original motion-only field).
+function getShapeFactor(i, j, p, t) {
+  if (shape === 'grid' || !shape) return null;
+  const gs = p.gridSize;
+  const cx = (gs - 1) / 2, cy = (gs - 1) / 2;
+  const half = Math.max(gs / 2, 1);
+  const nx = (i - cx) / half; // roughly -1..1
+  const ny = (j - cy) / half; // roughly -1..1
+  const r = Math.sqrt(nx * nx + ny * ny);
+  const sp = p.speed;
+
+  switch (shape) {
+    case 'sphere': {
+      const r2 = nx * nx + ny * ny;
+      return r2 <= 1 ? Math.sqrt(1 - r2) : 0;
+    }
+    case 'dome':
+      return Math.max(0, 1 - r * r);
+    case 'pyramid':
+      return Math.max(0, 1 - Math.max(Math.abs(nx), Math.abs(ny)));
+    case 'valley':
+      return Math.min(1, r);
+    case 'wave':
+      return Math.sin(nx * Math.PI * 1.5 + t * sp * 1.5) * 0.5 + 0.5;
+    case 'spiral': {
+      const ang = Math.atan2(ny, nx);
+      return (Math.sin(ang * 3 - r * 7 + t * sp * 1.2) * 0.5 + 0.5) * Math.max(0, 1 - r * 0.7);
+    }
+    case 'arch':
+      return Math.max(0, Math.cos(nx * Math.PI / 2));
+    default:
+      return null;
+  }
+}
+
 function getHeight(i, j, t, p) {
   const sp = p.speed;
+  const shapeFactor = getShapeFactor(i, j, p, t);
+  if (shapeFactor !== null) {
+    // Shape mode: the silhouette sets the main structure; a light secondary
+    // texture (driven by the selected motion) keeps it feeling alive without
+    // breaking the recognizable form.
+    const ampl = Math.max(0.3, p.baseH + p.variation);
+    let texture = 0;
+    if (motion === 'static') {
+      texture = 0;
+    } else if (motion === 'breathe') {
+      texture = noise2D(i / 8 + t * sp * 0.15, j / 8 + t * sp * 0.12, seed) - 0.5;
+    } else {
+      texture = Math.sin(i * 0.4 + j * 0.15 - t * sp * 2) * 0.5;
+    }
+    return Math.max(0.05, 0.08 + shapeFactor * ampl + texture * p.variation * 0.12);
+  }
   let n = 0;
   if (motion === 'breathe') {
     // Slow organic breathing — large-scale noise drifting gently
@@ -561,6 +628,7 @@ function toggleHeightBrightness() {
 // ── AX Prompt Input: apply a parameter preset from parent ──────────────────
 function setAxDirection(d){ direction = d; document.querySelectorAll('#dirs .btn').forEach(b => b.classList.toggle('on', b.dataset.d === d)); }
 function setAxMotion(m){ motion = m; document.querySelectorAll('#motions .btn').forEach(b => b.classList.toggle('on', b.dataset.mo === m)); }
+function setAxShape(s){ shape = s; document.querySelectorAll('#shapes .btn').forEach(b => b.classList.toggle('on', b.dataset.sh === s)); }
 function setAxHeightBrightness(on){ if(!!on !== heightBrightnessOn) toggleHeightBrightness(); }
 let _axTween = null;
 function applyParams(params, animate, doReseed, doPlay){
@@ -569,6 +637,7 @@ function applyParams(params, animate, doReseed, doPlay){
   if('cubeCount' in params) cubeCount = params.cubeCount;
   if(params.direction) setAxDirection(params.direction);
   if(params.motion) setAxMotion(params.motion);
+  if(params.shape) setAxShape(params.shape);
   if('heightBrightness' in params) setAxHeightBrightness(params.heightBrightness);
   const numIds = ['scale','gridSize','gap','angle','zoom','variation','neon','speed','lineW','opacity','fillOp','hbRange'];
   const targets = {};
@@ -608,6 +677,12 @@ document.getElementById('motions').addEventListener('click', e => {
   document.querySelectorAll('#motions .btn').forEach(b => b.classList.remove('on'));
   e.target.classList.add('on');
   motion = e.target.dataset.mo;
+});
+document.getElementById('shapes').addEventListener('click', e => {
+  if (!e.target.dataset.sh) return;
+  document.querySelectorAll('#shapes .btn').forEach(b => b.classList.remove('on'));
+  e.target.classList.add('on');
+  shape = e.target.dataset.sh;
 });
 
 // Strip unit suffix to get raw number
