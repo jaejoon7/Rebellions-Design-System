@@ -774,7 +774,7 @@
         <!-- Embedded Brand Expression Tool -->
         <div style="padding: 0 var(--px) 32px var(--px);">
           <div style="background: {{ exprContainerBg }}; border: {{ exprContainerBorder }}; border-radius: 0px; overflow: hidden;">
-            <iframe src="{{ exprIframeSrc }}" style="width: 100%; border: none; display: block; height: clamp(560px, 80vh, 780px); position: static"></iframe>
+            <iframe src="uploads/rebellions_Brand_Expression_light.html" style="width: 100%; border: none; display: block; height: clamp(560px, 80vh, 780px); position: static"></iframe>
           </div>
         </div>
 
@@ -786,8 +786,8 @@
           <div style="border: 0.5px solid var(--border); background: var(--bg-card); padding: 24px;">
             <div style="font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;">Prompt</div>
             <div style="display: flex; gap: 10px;">
-              <input id="axPromptInput" placeholder="e.g. data center, 14×14, more neon   ·   or: chip, top-down" style="flex: 1; background: #F6F8FA; border: 0.5px solid var(--border); border-radius: 0px; padding: 13px 16px; font-size: 14px; font-family: Sohne, Pretendard Variable, sans-serif; color: var(--text-primary); outline: none;">
-              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;" onmouseover="this.style.background='#24292F'" onmouseout="this.style.background='#1B1F23'">Generate</button>
+              <input id="axPromptInput" onKeyDown="{{ keyAx }}" placeholder="e.g. data center, 14×14, more neon   ·   or: chip, top-down" style="flex: 1; background: #F6F8FA; border: 0.5px solid var(--border); border-radius: 0px; padding: 13px 16px; font-size: 14px; font-family: Sohne, Pretendard Variable, sans-serif; color: var(--text-primary); outline: none;">
+              <button id="axGenerateBtn" onClick="{{ applyAx }}" style="font-size: 13px; font-weight: 600; color: #F6F8FA; background: #1B1F23; border: none; border-radius: 0px; padding: 0 26px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;" onmouseover="this.style.background='#24292F'" onmouseout="this.style.background='#1B1F23'">Generate</button>
             </div>
 
             <!-- Quick-start examples -->
@@ -2521,11 +2521,92 @@ class Component extends DCLogic {
     if (f && f.contentWindow) f.contentWindow.postMessage({ type: 'rbln-apply-params', params, animate: true, reseed: !!reseed, play: !!play }, '*');
   }
 
-  runAxPrompt(text) {
-    const r = this.interpretAx(text);
-    this.setState({ axResult: r });
-    if (r.noop) return; // nothing recognized — keep current cube state
-    this.postAxToCube(r.params, !r.partial, r.play);
+  async runAxPrompt(text) {
+    if (!text || !text.trim()) return;
+
+    // 대기 상태를 화면 UI에 실시간 반영합니다.
+    this.setState({
+      axResult: {
+        label: 'AI 분석 중...',
+        tags: [],
+        matched: [],
+        mods: ['제미나이가 디자인 규격을 연산하고 있습니다...'],
+        empty: false,
+        partial: false,
+        play: false
+      }
+    });
+
+    try {
+      // 1. 파이썬 백엔드 서버와 통신 (제미나이 호출)
+      const response = await fetch('https://rebellions-ax-backend.rebellions.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text })
+      });
+      const data = await response.json();
+
+      // 2. 3D 엔진용 안전한 수치 변환기 가동
+      var safeNum = function(val, fallback) {
+        if (val === undefined || val === null) return fallback;
+        if (typeof val === 'string') val = val.replace(/[^0-9.-]/g, '');
+        var n = Number(val);
+        return isNaN(n) ? fallback : n;
+      };
+
+      var cubeParams = {
+        scale: safeNum(data.scale ?? data.scale_up, 40),
+        gridSize: safeNum(data.gridSize ?? data.grid_size, 11),
+        gap: safeNum(data.gap, 10),
+        angle: safeNum(data.angle, 30),
+        zoom: safeNum(data.zoom, 100),
+        direction: data.direction ?? data.dir ?? 'up',
+        motion: String(data.motion ?? 'breathe').toLowerCase(),
+        variation: safeNum(data.variation ?? data.var, 70),
+        neon: safeNum(data.neon, 3),
+        speed: safeNum(data.speed, 55),
+        lineW: safeNum(data.lineW ?? data.line_w, 0),
+        opacity: safeNum(data.opacity, 92),
+        fillOp: safeNum(data.fillOp ?? data.fill_op, 100),
+        heightBrightness: data.heightBrightness ?? data.height_brightness ?? true,
+        hbRange: safeNum(data.hbRange ?? data.hb_range, 45)
+      };
+
+      // 3. 프레임워크 상태(State) 업데이트로 하단 가이드라인 및 태그 칩 즉시 변경
+      const r = {
+        id: 'custom_ai',
+        label: data.label || 'AI Custom',
+        params: cubeParams,
+        tags: [
+          { k: 'MOTION', v: cubeParams.motion },
+          { k: 'GRID', v: cubeParams.gridSize + '×' + cubeParams.gridSize },
+          { k: 'SCALE', v: cubeParams.scale + '%' },
+          { k: 'NEON', v: cubeParams.neon + '%' }
+        ],
+        matched: [],
+        mods: ['💡 AI 가이드: ' + (data.reason || '성공적으로 반영되었습니다.')],
+        empty: false,
+        partial: false,
+        play: data.motion !== 'static'
+      };
+
+      this.setState({ axResult: r });
+
+      // 4. 원래 존재하던 3D 큐브 화면 전송 함수를 호출하여 완벽 연동!
+      this.postAxToCube(cubeParams, true, data.motion !== 'static');
+
+    } catch (error) {
+      console.error('AI 서버 통신 에러:', error);
+      this.setState({
+        axResult: {
+          label: '연결 실패',
+          tags: [],
+          matched: [],
+          mods: ['로컬 파이썬 서버(uvicorn) 및 제미나이 API 키 상태를 확인하세요.'],
+          empty: false
+        }
+      });
+    }
   }
 
   readAxInput() { const el = document.getElementById('axPromptInput'); return el ? el.value : ''; }
@@ -2820,14 +2901,110 @@ class Component extends DCLogic {
       : (r.mods && r.mods.length ? ('adjustments · ' + r.mods.join(' · ')) : ('keywords · ' + r.matched.slice(0, 6).join(' · ')));
   }
 
-  function runAxPrompt(text) {
-    var r = interpretAx(text);
-    renderAxResult(r);
-    if (r.noop) return;
-    addRecent(text);
-    postAxToCube(r.params, !r.partial, r.play);
+async function runAxPrompt(text) {
+  var labelEl = document.getElementById('axPresetLabel');
+  var lineEl = document.getElementById('axMatchedLine');
+  var tagsEl = document.getElementById('axTagsContainer');
+
+  // 1. 🚨 [글자 자동 추적 장치] 버튼 클릭 시 글자가 누락되어 들어오면 화면의 모든 입력창을 뒤져서 글자를 찾아냅니다.
+  if (!text || typeof text !== 'string' || !text.trim()) {
+    var els = document.querySelectorAll('textarea, input[type="text"]');
+    for (var i = 0; i < els.length; i++) {
+      if (els[i].value && els[i].value.trim()) {
+        text = els[i].value;
+        break;
+      }
+    }
   }
 
+  // 2. 🚨 [시각적 진단 벽] 만약 글자를 찾는 데 끝내 실패했다면 화면에 알림을 띄우고 멈춥니다.
+  if (!text || !text.trim()) {
+    if (labelEl) labelEl.textContent = '입력 확인 필요';
+    if (lineEl) lineEl.textContent = '프롬프트 입력창에 내용을 입력한 뒤 [Generate] 버튼을 눌러주세요!';
+    return;
+  }
+
+  if (labelEl) labelEl.textContent = 'AI 엔진 분석 중...';
+  if (lineEl) lineEl.textContent = '제미나이가 디자인 규격을 연산하고 있습니다...';
+
+  try {
+    // 3. 파이썬 백엔드 서버와 통신 (제미나이 호출)
+    const response = await fetch('https://rebellions-ax-backend.rebellions.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text })
+    });
+    const data = await response.json();
+
+    // 4. 3D 엔진용 순수 15가지 디자인 수치 세척 (안전장치)
+    var safeNum = function(val, fallback) {
+      if (val === undefined || val === null) return fallback;
+      if (typeof val === 'string') {
+        val = val.replace(/[^0-9.-]/g, '');
+      }
+      var n = Number(val);
+      return isNaN(n) ? fallback : n;
+    };
+
+    var cubeParams = {
+      scale: safeNum(data.scale ?? data.scale_up, 40),
+      gridSize: safeNum(data.gridSize ?? data.grid_size, 11),
+      gap: safeNum(data.gap, 10),
+      angle: safeNum(data.angle, 30),
+      zoom: safeNum(data.zoom, 100),
+      direction: data.direction ?? data.dir ?? 'up',
+      motion: String(data.motion ?? 'breathe').toLowerCase(),
+      variation: safeNum(data.variation ?? data.var, 70),
+      neon: safeNum(data.neon, 3),
+      speed: safeNum(data.speed, 55),
+      lineW: safeNum(data.lineW ?? data.line_w, 0),
+      opacity: safeNum(data.opacity, 92),
+      fillOp: safeNum(data.fillOp ?? data.fill_op, 100),
+      heightBrightness: data.heightBrightness ?? data.height_brightness ?? true,
+      hbRange: safeNum(data.hbRange ?? data.hb_range, 45)
+    };
+
+    // 5. 화면 가이드 텍스트 및 라벨 업데이트
+    if (labelEl) labelEl.textContent = data.label || 'AI Custom';
+    if (lineEl) lineEl.textContent = '💡 AI 가이드: ' + (data.reason || '성공적으로 반영되었습니다.');
+
+    // 6. 하단 스펙 태그 칩 생성
+    if (tagsEl) {
+      tagsEl.innerHTML = '';
+      var specTags = [
+        { k: 'MOTION', v: cubeParams.motion },
+        { k: 'GRID', v: cubeParams.gridSize + '×' + cubeParams.gridSize },
+        { k: 'SCALE', v: cubeParams.scale + '%' },
+        { k: 'NEON', v: cubeParams.neon + '%' }
+      ];
+      specTags.forEach(function (t) {
+        var chip = document.createElement('div');
+        chip.style.cssText = 'font-size: 10px; font-family: "Space Mono", monospace; color: var(--text-tertiary); border: 0.5px solid var(--border); background: #F6F8FA; padding: 4px 10px; display: inline-block; margin-right: 4px; margin-top: 4px;';
+        chip.innerHTML = '<span style="color: var(--text-primary); font-weight: 500;">' + t.k + '</span> ' + t.v;
+        tagsEl.appendChild(chip);
+      });
+    }
+
+    if (typeof addRecent === 'function') addRecent(text);
+
+    // 7. 🚨 [3D 엔진 전송 이중 방어막] 전역 함수와 iframe 직접 신호 전송 방식을 모두 지원하여 무조건 큐브를 깨웁니다.
+    if (typeof postAxToCube === 'function') {
+      postAxToCube(cubeParams, true, true);
+    } else {
+      var iframe = document.querySelector('iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: 'UPDATE_PARAMS', params: cubeParams }, '*');
+        iframe.contentWindow.postMessage({ type: 'AX_PARAMS', params: cubeParams }, '*');
+        iframe.contentWindow.postMessage(cubeParams, '*');
+      }
+    }
+
+  } catch (error) {
+    console.error('AI 서버 에러:', error);
+    if (labelEl) labelEl.textContent = '연결 실패';
+    if (lineEl) lineEl.textContent = '로컬 파이썬 API 서버 연결 및 API 키 상태를 확인하세요.';
+  }
+}
   // ── Examples + saved prompts (localStorage) ──
   var EXAMPLES = ['리벨리온 무드등', 'data center, 14×14, more neon', 'chip, top-down', '웅장한 타워, 네온', '차분한 필드, 정적', 'wave flow, faster'];
 
