@@ -2807,9 +2807,15 @@ class Component extends DCLogic {
   // localStorage only (never committed): 'rbln-ax-ai-endpoint' = FastAPI
   // /control-cube URL, or 'rbln-gemini-key' = Gemini API key for direct
   // browser calls. The AI chip in the overlay sets/clears these.
+  // Default cloud endpoint (Rebellions_API.py, deployed on Render) — used
+  // when the user hasn't configured a personal override in localStorage.
+  // The Gemini key lives only on that server, never in this page.
+  var AX_DEFAULT_ENDPOINT = 'https://rebellions-ax-api.onrender.com/control-cube';
+
   function aiConfig() {
     var ep = null, key = null;
     try { ep = localStorage.getItem('rbln-ax-ai-endpoint'); key = localStorage.getItem('rbln-gemini-key'); } catch (e) {}
+    if (!ep && !key) ep = AX_DEFAULT_ENDPOINT;
     return { ep: ep, key: key, on: !!(ep || key) };
   }
 
