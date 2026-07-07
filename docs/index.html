@@ -2793,12 +2793,123 @@ class Component extends DCLogic {
       : (r.mods && r.mods.length ? ('adjustments · ' + r.mods.join(' · ')) : ('keywords · ' + r.matched.slice(0, 6).join(' · ')));
   }
 
-  function runAxPrompt(text) {
+  function runAxRules(text, keepStatus) {
     var r = interpretAx(text);
     renderAxResult(r);
-    if (r.noop) return;
+    if (r.noop) { if (!keepStatus) setAxStatus('인식된 키워드 없음 · 변경 없음'); return; }
     addRecent(text);
     postAxToCube(r.params, !r.partial, r.play);
+    if (!keepStatus) setAxStatus('규칙 · ' + r.label + (r.mods && r.mods.length ? (' — ' + r.mods.join(' · ')) : ''));
+  }
+
+  // ── AI (Gemini) layer — ported from Rebellions_API.py ──
+  // Priority: AI (if configured) → rule-based fallback. Config lives in
+  // localStorage only (never committed): 'rbln-ax-ai-endpoint' = FastAPI
+  // /control-cube URL, or 'rbln-gemini-key' = Gemini API key for direct
+  // browser calls. The AI chip in the overlay sets/clears these.
+  function aiConfig() {
+    var ep = null, key = null;
+    try { ep = localStorage.getItem('rbln-ax-ai-endpoint'); key = localStorage.getItem('rbln-gemini-key'); } catch (e) {}
+    return { ep: ep, key: key, on: !!(ep || key) };
+  }
+
+  function setAxStatus(msg) {
+    var el = document.getElementById('axAiStatus');
+    if (!el) return;
+    if (!msg) { el.style.display = 'none'; el.textContent = ''; return; }
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function buildAxAiPrompt(userInput) {
+    return '너는 Rebellions의 고성능 3D 큐브 그리드 그래픽 컨트롤러야.\n' +
+      '사용자의 요구사항(자연어)을 분석해서 디자인 엔진에 주입할 15가지 파라미터를 정확한 JSON 형태로 출력해.\n\n' +
+      "- motion: 'breathe', 'wave', 'pulse', 'cascade', 'static' 중 하나 (*반드시 소문자)\n" +
+      '- speed: 0~200 정수\n- neon: 0~15 정수\n- scale: 0~100 정수\n- gridSize: 1~20 정수 (기본값 11)\n- gap: 0~200 정수\n- angle: 10~60 정수\n- zoom: 20~300 정수\n' +
+      "- direction: 'up', 'down', 'random' 중 하나\n" +
+      '- variation: 0~300 정수\n- lineW: 0.0 ~ 2.0 실수\n- opacity: 20~100 정수\n- fillOp: 0 또는 100 정수\n- heightBrightness: true 또는 false 불리언\n- hbRange: 0~100 정수\n\n' +
+      '[사용자 요구사항]: "' + userInput + '"\n\n' +
+      '반드시 다른 설명 없이 순수한 JSON 형식으로만 답변해줘. 위 파라미터에 더해 "label"(2~4단어 영어 이름)과 "reason"(요청을 분석하여 이 수치로 세팅한 디자인적 이유 요약, 한국어) 필드도 포함해.';
+  }
+
+  function clampAiParams(p) {
+    var out = {};
+    function num(k, min, max, round) {
+      if (p[k] == null || isNaN(+p[k])) return;
+      var v = Math.max(min, Math.min(max, +p[k]));
+      out[k] = round ? Math.round(v) : v;
+    }
+    num('speed', 0, 200, 1); num('neon', 0, 15, 1); num('scale', 0, 100, 1);
+    num('gridSize', 1, 20, 1); num('gap', 0, 200, 1); num('angle', 10, 60, 1);
+    num('zoom', 20, 300, 1); num('variation', 0, 300, 1); num('lineW', 0, 2, 0);
+    num('opacity', 20, 100, 1); num('hbRange', 0, 100, 1);
+    if (p.fillOp != null && !isNaN(+p.fillOp)) out.fillOp = (+p.fillOp >= 50) ? 100 : 0;
+    if (typeof p.heightBrightness === 'boolean') out.heightBrightness = p.heightBrightness;
+    else if (p.heightBrightness === 'true' || p.heightBrightness === 'false') out.heightBrightness = (p.heightBrightness === 'true');
+    var mo = String(p.motion || '').toLowerCase();
+    if (['breathe', 'wave', 'pulse', 'cascade', 'static'].indexOf(mo) >= 0) out.motion = mo;
+    var dir = String(p.direction || '').toLowerCase();
+    if (['up', 'down', 'random'].indexOf(dir) >= 0) out.direction = dir;
+    out.cubeCount = null;
+    return out;
+  }
+
+  function runAxAi(text, cfg) {
+    var btn = document.getElementById('axGenerateBtn');
+    if (btn) btn.textContent = '…';
+    setAxStatus('AI 해석 중…');
+    function done() { var b = document.getElementById('axGenerateBtn'); if (b) b.textContent = 'Generate'; }
+    var p;
+    if (cfg.ep) {
+      p = fetch(cfg.ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
+        .then(function (r) { return r.json(); });
+    } else {
+      p = fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + encodeURIComponent(cfg.key), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: buildAxAiPrompt(text) }] }], generationConfig: { responseMimeType: 'application/json' } })
+      }).then(function (r) { return r.json(); }).then(function (d) {
+        var t = d && d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts && d.candidates[0].content.parts[0] && d.candidates[0].content.parts[0].text;
+        if (!t) throw new Error((d && d.error && d.error.message) || 'empty response');
+        return JSON.parse(t);
+      });
+    }
+    p.then(function (raw) {
+      if (!raw || raw.status === 'error') throw new Error((raw && raw.reason) || 'server error');
+      var params = clampAiParams(raw);
+      var hasAny = Object.keys(params).some(function (k) { return k !== 'cubeCount' && params[k] != null; });
+      if (!hasAny) throw new Error('no usable params');
+      done();
+      addRecent(text);
+      postAxToCube(params, true, true);
+      renderAxResult({ label: raw.label || 'AI Custom', tags: makeAxTags(params), matched: [], mods: [], noop: false });
+      setAxStatus('AI · ' + (raw.label || 'Custom') + (raw.reason ? (' — ' + raw.reason) : ''));
+    }).catch(function (e) {
+      done();
+      setAxStatus('AI 오류(' + String(e && e.message || 'network').slice(0, 60) + ') → 규칙 기반으로 적용');
+      runAxRules(text, true);
+    });
+  }
+
+  function configureAxAi() {
+    var cfg = aiConfig();
+    var v = window.prompt('AI 연동 설정\n· Gemini API 키(AIza…)를 입력하면 브라우저에서 직접 호출합니다 (키는 이 브라우저에만 저장)\n· FastAPI 서버 URL(http…/control-cube)을 입력하면 서버 경유로 호출합니다\n· 비우고 확인 = AI 끄기(규칙 기반만 사용)', cfg.ep || cfg.key || '');
+    if (v === null) return;
+    v = v.trim();
+    try {
+      localStorage.removeItem('rbln-ax-ai-endpoint');
+      localStorage.removeItem('rbln-gemini-key');
+      if (v) {
+        if (/^https?:\/\//.test(v)) localStorage.setItem('rbln-ax-ai-endpoint', v);
+        else localStorage.setItem('rbln-gemini-key', v);
+      }
+    } catch (e) {}
+    setAxStatus(v ? ('AI 켜짐 · ' + (/^https?:/.test(v) ? '백엔드 연동' : 'Gemini 직접 호출')) : 'AI 꺼짐 · 규칙 기반만 사용');
+  }
+
+  function runAxPrompt(text) {
+    var cfg = aiConfig();
+    if (cfg.on && (text || '').trim()) runAxAi(text, cfg);
+    else runAxRules(text);
   }
 
   // ── Examples + saved prompts (localStorage) ──
@@ -2882,6 +2993,8 @@ class Component extends DCLogic {
     if (!e.target.closest) return;
     var gen = e.target.closest('#axGenerateBtn');
     if (gen) { var input = document.getElementById('axPromptInput'); if (input) runAxPrompt(input.value); return; }
+    var ai = e.target.closest('#axAiToggle');
+    if (ai) { configureAxAi(); return; }
     var clr = e.target.closest('#axClearRecent');
     if (clr) { saveAx('rbln-ax-recent', []); renderSaved(); return; }
     var fav = e.target.closest('[data-ax-fav]');
@@ -2919,6 +3032,10 @@ class Component extends DCLogic {
     if (inp) { inp.style.background = '#F6F8FA'; inp.style.borderColor = 'rgba(0,0,0,0.08)'; inp.style.color = '#1B1F23'; }
     var btn = document.getElementById('axGenerateBtn');
     if (btn) { btn.style.background = '#1B1F23'; btn.style.color = '#F6F8FA'; }
+    var aiBtn = document.getElementById('axAiToggle');
+    if (aiBtn) { aiBtn.style.background = '#F6F8FA'; aiBtn.style.borderColor = 'rgba(0,0,0,0.08)'; aiBtn.style.color = '#1B1F23'; }
+    var st = document.getElementById('axAiStatus');
+    if (st) { st.style.color = '#1B1F23'; }
   }
   axOverlayStaticFix();
 
