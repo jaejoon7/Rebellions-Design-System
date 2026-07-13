@@ -271,8 +271,8 @@
               <span style="position: absolute; bottom: 12px; left: 16px; font-size: 10px; font-family: Space Mono, monospace; color: rgba(255,255,255,0.3);">Negative / Dark BG</span>
             </div>
             <div style="background: #FFFFFF; border-radius: 0px; padding: 48px 32px; display: flex; align-items: center; justify-content: center; border: 0.5px solid var(--border); position: relative;">
-              <img src="uploads/Rebellions_logo_positive_primary_RGB.png" style="width: 280px; height: auto;" alt="Horizontal Full Color Positive">
-              <a href="uploads/Rebellions_logo_positive_primary_RGB.png" download="" style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 0px; color: rgba(0,0,0,0.25); text-decoration: none" style-hover="color: #1A8C1E;">
+              <img src="uploads/Rebellions_logo_positive_primary_RGB-b26cb896.png" style="width: 280px; height: auto;" alt="Horizontal Full Color Positive">
+              <a href="uploads/Rebellions_logo_positive_primary_RGB-b26cb896.png" download="" style="position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 0px; color: rgba(0,0,0,0.25); text-decoration: none" style-hover="color: #1A8C1E;">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8m0 0L5 7m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="square" stroke-linejoin="miter"></path></svg>
               </a>
               <span style="position: absolute; bottom: 12px; left: 16px; font-size: 10px; font-family: Space Mono, monospace; color: rgba(0,0,0,0.25);">Positive / Light BG</span>
@@ -609,7 +609,7 @@
             </div>
             <div style="border-radius: 0px">
               
-              <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Grays</div><p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.7; max-width: 499px">The neutral gray scale provides nuance and meaningful moments of color.<br>Five grays from F6F8FA to 1B1F23 cover the full range of backgrounds and text, ensuring every design maintains legibility and hierarchy.</p>
+              <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Grays</div><p style="font-size: 14px; color: var(--text-secondary); margin: 0; line-height: 1.7; max-width: 544px">The neutral gray scale provides nuance and meaningful moments of color. Five grays from F6F8FA to 1B1F23 cover the full range of backgrounds and text, ensuring every design maintains legibility and hierarchy.</p>
             </div>
           </div>
         </div>
@@ -711,7 +711,7 @@
           <!-- Secondary Gradients -->
           <div style="margin-bottom: 40px;">
             <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Secondary</div>
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 4px;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0px; margin-bottom: 0px;">
               <sc-for list="{{ secondaryGradients }}" as="g" hint-placeholder-count="10">
                 <div onClick="{{ copyValue }}" data-copy="{{ g.css }}" style="background: {{ g.css }}; height: 120px; cursor: pointer; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; transition: opacity 0.15s ease; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" style-hover="opacity: 0.85;">
                   <span style="font-size: 10px; font-weight: 400; font-family: Space Mono, monospace; color: {{ g.labelColor }}">{{ g.name }}</span>
@@ -778,8 +778,8 @@
             <iframe src="{{ exprIframeSrc }}" style="width: 100%; border: none; display: block; height: clamp(560px, 80vh, 780px); position: static"></iframe>
             <!-- AX Prompt overlay (input + Generate only) -->
             <div id="axOverlay" style="position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(620px, calc(100% - 48px)); display: flex; gap: 8px; padding: 8px; background: {{ axOvBg }}; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 0.5px solid {{ axOvBorder }}; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
-              <input id="axPromptInput" placeholder="e.g. data center, 14×14, more neon" style="flex: 1; min-width: 0; background: {{ axOvInputBg }}; border: 0.5px solid {{ axOvInputBorder }}; border-radius: 0px; padding: 11px 14px; font-size: 13px; font-family: Sohne, Pretendard Variable, sans-serif; color: {{ axOvInputColor }}; outline: none;">
-              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: {{ axOvBtnColor }}; background: {{ axOvBtnBg }}; border: none; border-radius: 0px; padding: 0 22px; cursor: pointer; white-space: nowrap; font-family: Sohne, Pretendard Variable, sans-serif;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Generate</button>
+              <input id="axPromptInput" placeholder="e.g. data center, 14×14, more neon" style="flex: 1; min-width: 0; background: {{ axOvInputBg }}; border: 0.5px solid {{ axOvInputBorder }}; border-radius: 0px; padding: 11px 14px; font-size: 13px; font-family: 'Space Mono', monospace; color: {{ axOvInputColor }}; outline: none;">
+              <button id="axGenerateBtn" style="font-size: 13px; font-weight: 600; color: {{ axOvBtnColor }}; background: {{ axOvBtnBg }}; border: none; border-radius: 0px; padding: 0 22px; cursor: pointer; white-space: nowrap; font-family: 'Space Mono', monospace;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Generate</button>
             </div>
           </div>
         </div>
@@ -969,7 +969,7 @@
             <div style="border: 0.5px solid var(--border); background: var(--bg-card); padding: 40px;">
               <div style="font-size: 22px; font-weight: 600; font-family: Sohne, sans-serif; margin-bottom: 12px;">PPT Template</div>
               <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin: 0 0 32px 0">A PowerPoint template built to Rebellions brand guidelines.<br>Optimized for external presentations, client meetings, and high-resolution print output.</p>
-              <a href="uploads/Rebellions_2026_Deck_Guide-39d3f6d9.pptx" download="" style="display: flex; align-items: center; gap: 19px; padding: 14px 32px; color: #1c2024; font-size: 14px; font-family: Sohne, sans-serif; font-weight: 500; text-decoration: none; cursor: pointer; transition: background 0.15s ease, transform 0.15s ease; background-color: #f6f8fa; width: 205px; text-align: center; flex-direction: row; justify-content: center" style-hover="background: #e8eaed; transform: translateY(-1px);">
+              <a href="uploads/Rebellions_2026_Deck_Guide_V3.2.pptx" download="" style="display: flex; align-items: center; gap: 19px; padding: 14px 32px; color: #1c2024; font-size: 14px; font-family: Sohne, sans-serif; font-weight: 500; text-decoration: none; cursor: pointer; transition: background 0.15s ease, transform 0.15s ease; background-color: #f6f8fa; width: 205px; text-align: center; flex-direction: row; justify-content: center" style-hover="background: #e8eaed; transform: translateY(-1px);">
                 Download
               </a>
             </div>
@@ -1007,7 +1007,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
                   <div style="font-family: Sohne, sans-serif; font-size: 36px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px">Headline</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Söhne</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Kräftig</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
@@ -1016,7 +1016,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
                   <div style="font-family: Pretendard Variable, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 12px; min-height: 50px">헤드라인</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Pretendard</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>SemiBold</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>44 or 32pt</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
@@ -1026,7 +1026,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
                   <div style="font-family: Sohne, sans-serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; min-height: 50px">Supporting headline and summary</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500; font-size: 10px;">Name&nbsp;</span>Söhne</div>
+                    <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500; font-size: 10px;"><span style="font-size: 11px;">Font&nbsp;</span></span>Söhne</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500; font-size: 10px;">Weight&nbsp;</span>Buch</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
@@ -1035,7 +1035,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
                   <div style="font-family: Pretendard Variable, sans-serif; font-size: 24px; font-weight: 500; margin-bottom: 12px; min-height: 50px">헤드라인을 보조하며 상세 내용을 요약하는 부제목 역할</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Pretendard</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Medium</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>28 or 24pt</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
@@ -1045,7 +1045,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border); border-right: 0.5px solid var(--border);">
                   <div style="font-family: Sohne, sans-serif; font-size: 16px; font-weight: 300; line-height: 1.5; margin-bottom: 12px; min-height: 50px">Used for product descriptions and business overviews.</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Söhne</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Leicht, Buch</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
@@ -1054,7 +1054,7 @@
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
                   <div style="font-family: Pretendard Variable, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin-bottom: 12px; min-height: 50px">제품 상세 설명, 비즈니스 개요 등 정보 전달을 위한 본문.</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Pretendard</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Regular</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>20 or 14pt</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>1.1</div>
@@ -1064,7 +1064,7 @@
                 <div style="padding: 24px; border-right: 0.5px solid var(--border);">
                   <div style="font-family: Sohne, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px; min-height: 50px">A footnoting approach to include source references and additional notes at the page footer.</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Söhne</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Söhne</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>Extraleicht</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
                   </div>
@@ -1072,7 +1072,7 @@
                 <div style="padding: 24px;">
                   <div style="font-family: Pretendard Variable, sans-serif; font-size: 11px; font-weight: 200; line-height: 1.5; margin-bottom: 12px; min-height: 50px">페이지 하단에 출처 표기나 보충 설명을 덧붙이는 주석 방식</div>
                   <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2.5vw, 50px); font-size: 11px; font-family: Space Mono, monospace; color: var(--text-tertiary)">
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Name&nbsp;</span>Pretendard</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp;</span>Pretendard</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp;</span>ExtraLight</div>
                     <div><span style="color: var(--text-primary); font-weight: 500;">Size&nbsp;</span>8pt</div>
                   </div>
@@ -1427,41 +1427,7 @@
               <div style="font-size: 22px; font-weight: 600; font-family: Sohne, sans-serif; margin-bottom: 24px;">Product Naming Guidelines</div>
 
               <!-- Die Level -->
-              <div style="margin-bottom: 32px;">
-                <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Die Level (Internal Name Only)</div>
-                <div style="border: 0.5px solid var(--border); overflow: hidden;">
-                  <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; background: #1B1F23; color: #F6F8FA; font-size: 12px; font-family: Space Mono, monospace; font-weight: 500;">
-                    <div style="padding: 10px 16px; width: 258px">Type</div>
-                    <div style="padding: 10px 16px; width: 309px">Code Convention</div>
-                    <div style="padding: 10px 16px; width: 309px">Name Example</div>
-                    <div style="padding: 10px 16px; width: 309px">Note</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
-                    <div style="padding: 10px 16px; font-weight: 500; width: 258px">Compute Die</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">C + number</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">C10, C20, C30 / C31(Rev)</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">C(Compute)</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
-                    <div style="padding: 10px 16px; font-weight: 500; width: 258px">IO Die</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">I + Numeric</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">I10, I20</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">I(Interface)</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
-                    <div style="padding: 10px 16px; font-weight: 500; width: 258px">Memory Die</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">M + Number</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">M10, M20</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">-</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr; font-size: 13px; background: #FAFBFC;">
-                    <div style="padding: 10px 16px; font-weight: 500; width: 258px">Other Die</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">L/N/A + Numeric</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">L10, N20, etc.</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary); width: 309px">-</div>
-                  </div>
-                </div>
-              </div>
+              
 
               <!-- Integrated Product & Infrastructure List -->
               <div style="margin-bottom: 32px;">
@@ -1469,39 +1435,27 @@
                 <div style="border: 0.5px solid var(--border); overflow: hidden;">
                   <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; background: #1B1F23; color: #F6F8FA; font-size: 12px; font-family: Space Mono, monospace; font-weight: 500;">
                     <div style="padding: 10px 16px;">Category</div>
-                    <div style="padding: 10px 16px;">Existing Name</div>
-                    <div style="padding: 10px 16px;">Internal Name</div>
-                    <div style="padding: 10px 16px;">Product Name</div>
+                    <div style="padding: 10px 16px;">Existing Name (Internal)</div>
+                    <div style="padding: 10px 16px;">Internal Name (Production)</div>
+                    <div style="padding: 10px 16px;">Product Name (External)</div>
                   </div>
                   <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
+                    <div style="padding: 10px 16px; color: var(--text-secondary);">Server</div>
+                    <div style="padding: 10px 16px; color: var(--text-secondary);">ATOM™-Max</div>
+                    <div style="padding: 10px 16px; color: var(--text-secondary);">ATOM™-Max</div>
+                    <div style="padding: 10px 16px; font-weight: 500;">ATOM™-Max</div>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Package</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">REBEL-Quad</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">R100</div>
                     <div style="padding: 10px 16px; font-weight: 500;">Rebel100™</div>
                   </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">Package</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">REBEL-IO</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">R100s</div>
-                    <div style="padding: 10px 16px; font-weight: 500;">Rebel100s™</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">Package</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">-</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">R100m</div>
-                    <div style="padding: 10px 16px; font-weight: 500;">Rebel100m</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">Next Gen</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">-</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">R200</div>
-                    <div style="padding: 10px 16px; font-weight: 500;">Rebel200™</div>
-                  </div>
                   <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Card/Module</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">EVT0 / EVT1</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">RBLN-CR13</div>
-                    <div style="padding: 10px 16px; font-weight: 500;">RebelCard™ / RebelOAM™</div>
+                    <div style="padding: 10px 16px; font-weight: 500;">RebelCard™</div>
                   </div>
                   <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Server</div>
@@ -1515,17 +1469,11 @@
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Internal rack code</div>
                     <div style="padding: 10px 16px; font-weight: 500;">RebelRack™</div>
                   </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; border-bottom: 0.5px solid var(--border); background: #FAFBFC;">
+                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px; background: #FAFBFC;">
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Multi-rack</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Multiple rack</div>
                     <div style="padding: 10px 16px; color: var(--text-secondary);">Internal POD code</div>
                     <div style="padding: 10px 16px; font-weight: 500;">RebelPOD™</div>
-                  </div>
-                  <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1.2fr; font-size: 13px;">
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">Extension</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">-</div>
-                    <div style="padding: 10px 16px; color: var(--text-secondary);">-</div>
-                    <div style="padding: 10px 16px; font-weight: 500;">RebelNIC™</div>
                   </div>
                 </div>
               </div>
@@ -1535,8 +1483,8 @@
                 <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">Usage</div>
                 <div style="border: 0.5px solid var(--border); overflow: hidden;">
                   <div style="display: grid; grid-template-columns: 1fr 1.5fr; background: #1B1F23; color: #F6F8FA; font-size: 12px; font-family: Space Mono, monospace; font-weight: 500;">
-                    <div style="padding: 10px 16px; width: 593px">Product Name (Correct)</div>
-                    <div style="padding: 10px 16px; width: 593px">Correct Usage</div>
+                    <div style="padding: 10px 16px; width: 593px">Product names (Correct usage)</div>
+                    <div style="padding: 10px 16px; width: 593px">Correct usage (with descriptive text)</div>
                   </div>
                   <div style="display: grid; grid-template-columns: 1fr 1.5fr; font-size: 13px; border-bottom: 0.5px solid var(--border);">
                     <div style="padding: 10px 16px; font-weight: 500; width: 593px">RebelCard™</div>
@@ -1903,35 +1851,39 @@ class Component extends DCLogic {
   }
 
   getProductTabVals() {
-    const mk = (dir, files, product, category) => files.map((f, idx) => {
+    const mk = (dir, files, namePrefix) => files.map((f, idx) => {
       const ext = f.split('.').pop();
       const num = String(idx + 1).padStart(2, '0');
       const thumbFile = f.replace(/\.\w+$/, '.jpg');
-      return { name: 'Rebellions_' + product + '_' + category + '_' + num, filename: 'Rebellions_' + product + '_' + category + '_' + num + '.' + ext, src: dir + f, thumb: 'thumbs/' + dir + thumbFile };
+      return { name: 'Rebellions_' + namePrefix + '_' + num, filename: 'Rebellions_' + namePrefix + '_' + num + '.' + ext, src: dir + f, thumb: 'thumbs/' + dir + thumbFile };
     });
     const activeTab = this.state.productTab;
     const groups = [
       { id: 'rebel', subs: [
-        { label: 'Chip', items: mk('product_images/rebel/chip/', ['rebel.png','0415_01_IN.png','0415_03_IN.png','0415_05_IN.png'], 'REBEL', 'Chip') },
-        { label: 'Card', items: mk('product_images/rebel/card/', ['REBEL_FU02_Main_Cutout.png','REBEL_FU02_Cube_Studio.png','REBEL_FU02_Front.png','REBEL_FU02_Top.png','REBEL_FU02_Detail_Pers.png','card_01.jpg','card_02.jpg'], 'REBEL', 'Card') },
-        { label: 'Server', items: mk('product_images/rebel/server/', ['Server_Scene_Pers.png','Server_Scene_Front_Pers.png','Server_Scene_Pers_Card_Float.png','SM5U_Front_Pers.jpg','SM5U_Pers.jpg','SM5U_Card_Close_Front.jpg','SM5U_Pers_Cable.png','sm_5u_panel.png'], 'REBEL', 'Server') },
-        { label: 'Rack', items: mk('product_images/rack/', ['Rack_8EA_Front_Close.png','Rack_8EA_Front_Open.png','Rack_8EA_Modular_Low_Pers.png','Rack_8EA_Modular_Side_Pers_Close.png','Rack_8EA_Server_Room_Open.png','SM_Front_n.png','Rebel_rack.jpg','Rebel_rack_non_logo.jpg'], 'REBEL', 'Rack') }
+        { label: 'Chip', items: mk('product_images/rebel/chip/', ['rebel.png','0415_01_IN.png','0415_03_IN.png','0415_05_IN.png'], 'Rebel100') },
+        { label: 'Card', items: mk('product_images/rebel/card/', ['REBEL_FU02_Main_Cutout.png','REBEL_FU02_Cube_Studio.png','REBEL_FU02_Front.png','REBEL_FU02_Top.png','REBEL_FU02_Detail_Pers.png'], 'RebelCard') },
+        { label: 'Server', items: mk('product_images/rebel/server/', ['Server_Scene_Pers.png','Server_Scene_Front_Pers.png','Server_Scene_Pers_Card_Float.png','SM5U_Front_Pers.jpg','SM5U_Pers.jpg','SM5U_Card_Close_Front.jpg','SM5U_Pers_Cable.png','sm_5u_panel.png'], 'RebelServer') },
+        { label: 'Rack', items: mk('product_images/rack/', ['Rack_8EA_Front_Close.png','Rack_8EA_Front_Open.png','Rack_8EA_Modular_Low_Pers.png','Rack_8EA_Modular_Side_Pers_Close.png','Rack_8EA_Server_Room_Open.png','SM_Front_n.png','Rebel_rack.jpg','Rebel_rack_non_logo.jpg'], 'RebelRack') }
       ]},
       { id: 'atom', subs: [
-        { label: 'Chip', items: mk('product_images/atom/chip/', ['Atom.png','0313_05_L.jpg','0313_06.jpg','0313_07.jpg','0717_01_LL.jpg','0717_03_L.jpg'], 'ATOM', 'Chip') },
-        { label: 'Card', items: mk('product_images/atom/card/', ['ATOM_Dual_Slot_Float_Cutout.png','ATOM_Dual_Slot_Float.png','ATOM_Dual_Low_Pers.png','ATOM_Half_Low_Pers.png','ATOM_Single_Low_Pers.png','0313_01_L.jpg','0313_02_L.jpg','0313_03_L.jpg','0313_04_L.jpg'], 'ATOM', 'Card') },
-        { label: 'Server', items: mk('product_images/atom/server/', ['ca25_8ea_low.png','ca25_8ea_low_front.png','SMI_4U_cover.png'], 'ATOM', 'Server') },
-        { label: 'Rack', items: mk('product_images/rack/', ['rack.png','Rack_Line_up_Low.png','Rack_Line_up_Side_.png','Rack_Lineup_Low_Pers.jpg','Rack_Lineup_Side_Pers.png','2025_rack_bg.jpg','2025_rack_bg_2.jpg','2025_rack_bg_update.jpg'], 'ATOM', 'Rack') }
+        { label: 'Chip', items: mk('product_images/atom/chip/', ['Atom.png','0313_05_L.jpg','0313_06.jpg','0313_07.jpg','0717_01_LL.jpg','0717_03_L.jpg'], 'ATOM_Chip') },
+        { label: 'Card', items: [
+          ...mk('product_images/atom/card/', ['ATOM_Dual_Slot_Float_Cutout.png','ATOM_Dual_Slot_Float.png','ATOM_Dual_Low_Pers.png'], 'CA25'),
+          ...mk('product_images/atom/card/', ['ATOM_Half_Low_Pers.png'], 'CA21'),
+          ...mk('product_images/atom/card/', ['ATOM_Single_Low_Pers.png','0313_01_L.jpg','0313_02_L.jpg','0313_03_L.jpg','0313_04_L.jpg'], 'CA22')
+        ] },
+        { label: 'Server', items: mk('product_images/atom/server/', ['ca25_8ea_low.png','ca25_8ea_low_front.png','SMI_4U_cover.png'], 'ATOM-Max_Server') },
+        { label: 'Rack', items: mk('product_images/rack/', ['rack.png','Rack_Line_up_Low.png','Rack_Line_up_Side_.png','Rack_Lineup_Low_Pers.jpg','Rack_Lineup_Side_Pers.png','2025_rack_bg.jpg','2025_rack_bg_2.jpg','2025_rack_bg_update.jpg'], 'Rack') }
       ]},
       { id: 'datacenter', subs: [
         { label: 'Magok', items: mk('product_images/datacenter/', [
           'Rebellions_DataCenter_Magok_1.jpg','Rebellions_DataCenter_Magok_2.jpg','Rebellions_DataCenter_Magok_3.jpg','Rebellions_DataCenter_Magok_4.jpg','Rebellions_DataCenter_Magok_5.jpg','Rebellions_DataCenter_Magok_6.jpg','Rebellions_DataCenter_Magok_7.jpg','Rebellions_DataCenter_Magok_8.jpg','Rebellions_DataCenter_Magok_9.jpg','Rebellions_DataCenter_Magok_10.jpg','Rebellions_DataCenter_Magok_11.jpg','Rebellions_DataCenter_Magok_12.jpg','Rebellions_DataCenter_Magok_13.jpg','Rebellions_DataCenter_Magok_14.jpg','Rebellions_DataCenter_Magok_15.jpg','Rebellions_DataCenter_Magok_16.jpg','Rebellions_DataCenter_Magok_17.jpg','Rebellions_DataCenter_Magok_18.jpg','Rebellions_DataCenter_Magok_19.jpg','Rebellions_DataCenter_Magok_20.jpg','Rebellions_DataCenter_Magok_21.jpg','Rebellions_DataCenter_Magok_22.jpg','Rebellions_DataCenter_Magok_23.jpg','Rebellions_DataCenter_Magok_24.jpg','Rebellions_DataCenter_Magok_25.jpg'
-        ], 'DataCenter', 'Magok') }
+        ], 'DataCenter_Magok') }
       ]}
     ];
     const tabDefs = [
-      { id: 'rebel', label: 'REBEL' },
       { id: 'atom', label: 'ATOM' },
+      { id: 'rebel', label: 'REBEL' },
       { id: 'datacenter', label: 'DATA CENTER' }
     ];
     const productTabs = tabDefs.map(t => ({
