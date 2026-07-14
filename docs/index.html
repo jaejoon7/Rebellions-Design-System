@@ -35,6 +35,8 @@
     @font-face { font-family: 'PretendardLocal'; src: url('uploads/fonts/Pretendard-ExtraBold.otf') format('opentype'); font-weight: 800; font-display: swap; }
     @font-face { font-family: 'PretendardLocal'; src: url('uploads/fonts/Pretendard-Black.otf') format('opentype'); font-weight: 900; font-display: swap; }
     html, body { background: #F7F9FB; }
+    html { overflow-y: scroll; }
+    a { color: inherit; }
     body {
       margin: 0;
       -webkit-font-smoothing: antialiased;
@@ -1637,9 +1639,9 @@ class Component extends DCLogic {
       setLightTheme: () => { localStorage.setItem('rbln-ds-theme', 'light'); this.setState({ theme: 'light' }); },
       setDarkTheme: () => { localStorage.setItem('rbln-ds-theme', 'dark'); this.setState({ theme: 'dark' }); },
       lightBtnBg: !dark ? 'var(--bg-hover)' : 'transparent',
-      lightBtnColor: !dark ? 'var(--text-primary)' : 'var(--text-tertiary)',
+      lightBtnColor: !dark ? 'var(--text-primary)' : 'rgba(255,255,255,0.5)',
       darkBtnBg: dark ? 'var(--bg-hover)' : 'transparent',
-      darkBtnColor: dark ? 'var(--text-primary)' : 'var(--text-tertiary)',
+      darkBtnColor: dark ? '#ffffff' : 'var(--text-tertiary)',
       tocItems: this.state.tocItems || [],
       hasToc: (this.state.tocItems || []).length > 0 && activePage !== 'home',
       tocJump: (e) => {
@@ -2529,7 +2531,7 @@ function renderList19(list, vals){ if(!list) return ""; return list.map((it19, $
           `).join(""); }
 
 const RENDER_FNS = { renderList1, renderList0, renderList2, renderList3, renderList4, renderList5, renderList6, renderList7, renderList8, renderList9, renderList10, renderList11, renderList12, renderList14, renderList13, renderList15, renderList17, renderList16, renderList18, renderList19 };
-const DYN_STYLE = ["lightBtnBg","lightBtnColor","darkBtnBg","darkBtnColor","sohneWeight","pretendardWeight","monoWeight","exprContainerBg","exprContainerBorder","axOvBg","axOvBorder","axOvInputBg","axOvInputBorder","axOvInputColor","axOvBtnColor","axOvBtnBg","exprToggleBg","exprToggleBorder","exprToggleTextColor","iconBorderColor","iconGridBg","graphSectionBg","graphAxisColor","graphGridColor","graphS1","graphS2","graphLabelColor","chartSectionBg","chartAxisLine","chartLineColor","chartColShade","chartLabelTextColor","chartHeaderBg2","toastBg","toastFg","toastShadow","iconHoverBg"];
+const DYN_STYLE = ["lightBtnBg","lightBtnColor","darkBtnBg","darkBtnColor","sohneWeight","pretendardWeight","monoWeight","exprContainerBg","exprContainerBorder","axOvBg","axOvBorder","axOvInputBg","axOvInputBorder","axOvInputColor","axOvBtnColor","axOvBtnBg","exprToggleBg","exprToggleBorder","exprToggleTextColor","iconBorderColor","iconGridBg","iconLabelColor","graphSectionBg","graphAxisColor","graphGridColor","graphS1","graphS2","graphLabelColor","chartSectionBg","chartAxisLine","chartLineColor","chartColShade","chartLabelTextColor","chartHeaderBg2","toastBg","toastFg","toastShadow","iconHoverBg"];
 
 function update(){
   if (!comp) return;
