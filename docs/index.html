@@ -35,6 +35,7 @@
     @font-face { font-family: 'PretendardLocal'; src: url('uploads/fonts/Pretendard-ExtraBold.otf') format('opentype'); font-weight: 800; font-display: swap; }
     @font-face { font-family: 'PretendardLocal'; src: url('uploads/fonts/Pretendard-Black.otf') format('opentype'); font-weight: 900; font-display: swap; }
     html, body { background: #F7F9FB; }
+    html[data-theme="dark"] { background: #1B1F23; }
     html { overflow-y: scroll; }
     a { color: inherit; }
     body {
@@ -1455,6 +1456,7 @@ class Component extends DCLogic {
   applyTheme() {
     document.body.setAttribute('data-menu', this.state.mobileMenuOpen ? 'open' : 'closed');
     document.body.setAttribute('data-theme', this.state.theme);
+    document.documentElement.setAttribute('data-theme', this.state.theme);
   }
 
   componentDidMount() {
