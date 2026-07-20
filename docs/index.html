@@ -584,7 +584,8 @@
           <p style="font-size: 15px; color: var(--text-tertiary); margin: 0 0 32px 0; max-width: 640px; line-height: 1.7;">Click any swatch to copy the HEX value. Colors are organized by family, from light to dark.</p>
 
           <!-- Primary Colors -->
-          <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Primary</div>
+          <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Primary</div>
+          <p style="font-size: 14px; color: var(--text-tertiary); margin: 0 0 16px 0; line-height: 1.7;">Primary colors are unrestricted—Neon Green and the neutral grays form the core palette and can be used freely across any touchpoint.</p>
 
           <!-- Neutrals row -->
           <div style="margin-bottom: 4px;">
@@ -601,91 +602,11 @@
           </div>
 
           <!-- Secondary Colors -->
-          <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Secondary</div>
+          <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">Secondary</div>
+          <p style="font-size: 14px; color: var(--text-tertiary); margin: 0 0 16px 0; line-height: 1.7">Secondary colors are reserved for deck use and may only be applied within Tech Design contexts—never as core UI or brand colors.</p>
 
           <div style="display: flex;">
             <div data-for="specSecondaryFlat" data-fn="renderList7" style="display: contents"></div>
-          </div>
-        </div>
-
-
-
-        <!-- ══ GRADIENTS ══ -->
-        <div style="padding: 0 var(--px) var(--px) var(--px)">
-          <div style="font-size: 22px; font-weight: 600; font-family: Sohne, sans-serif; color: var(--text-primary); margin-bottom: 8px;">Gradients</div>
-          <p style="font-size: 15px; color: var(--text-tertiary); margin: 0 0 12px 0; line-height: 1.7">Use combinations within any of the acceptable color families when blending gradients.<br>Do not blend between colors that are more than two steps away from each other. Click to copy CSS value.</p>
-
-          <!-- Hero gradient showcase -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; margin-bottom: 48px; height: 200px; overflow: hidden;">
-            <div style="background: linear-gradient(180deg, #52F756 0%, #1DAA1D 100%); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-size: 11px; font-family: Space Mono, monospace; color: #1B1F23; opacity: 0.7;">Green 50 → 70</span>
-            </div>
-            <div style="background: linear-gradient(180deg, #0B3D0B 0%, #000 100%); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-size: 11px; font-family: Space Mono, monospace; color: #F6F8FA; opacity: 0.7;">Green 90 → Black</span>
-            </div>
-            <div style="background: linear-gradient(180deg, #2A2A2A 0%, #000 100%); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-size: 11px; font-family: Space Mono, monospace; color: #F6F8FA; opacity: 0.7;">Gray → Black</span>
-            </div>
-            <div style="background: linear-gradient(180deg, #52F756 0%, #20A0A0 100%); display: flex; align-items: flex-end; padding: 16px;">
-              <span style="font-size: 11px; font-family: Space Mono, monospace; color: #1B1F23; opacity: 0.7;">Green → Teal</span>
-            </div>
-          </div>
-
-          <!-- Primary Gradients -->
-          <div style="margin-bottom: 40px;">
-            <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Primary</div>
-            <div style="display: flex; gap: 0; margin-bottom: 4px;">
-              <div data-for="primaryGradients" data-fn="renderList8" style="display: contents"></div>
-            </div>
-          </div>
-
-          <!-- Mono Gradients -->
-          <div style="margin-bottom: 40px;">
-            <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Mono</div>
-            <div style="display: flex; gap: 0; margin-bottom: 4px;">
-              <div data-for="monoGradients" data-fn="renderList9" style="display: contents"></div>
-            </div>
-          </div>
-
-          <!-- Secondary Gradients -->
-          <div style="margin-bottom: 40px;">
-            <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Secondary</div>
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0px; margin-bottom: 0px;">
-              <div data-for="secondaryGradients" data-fn="renderList10" style="display: contents"></div>
-            </div>
-          </div>
-
-          <!-- Primary + Hue Gradients -->
-          <div style="margin-bottom: 40px;">
-            <div style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px;">Primary + Hue</div>
-            <div style="display: flex; gap: 0;">
-              <div data-for="hueGradients" data-fn="renderList11" style="display: contents"></div>
-            </div>
-          </div>
-
-          <!-- Gradient guidelines -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
-            <div style="border: 0.5px solid var(--border); overflow: hidden;">
-              <div style="height: 80px; background: linear-gradient(90deg, #52F756 0%, #174BEB 100%);"></div>
-              <div style="padding: 12px; display: flex; align-items: center; gap: 8px;">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#FF3333" stroke-width="1.5" stroke-linecap="round"></path></svg>
-                <span style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">Don't mix colors outside accepted families.</span>
-              </div>
-            </div>
-            <div style="border: 0.5px solid var(--border); overflow: hidden;">
-              <div style="height: 80px; background: linear-gradient(90deg, #0B3D0B 0%, #D4FFD5 100%);"></div>
-              <div style="padding: 12px; display: flex; align-items: center; gap: 8px;">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#FF3333" stroke-width="1.5" stroke-linecap="round"></path></svg>
-                <span style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">Avoid blending colors more than 2 steps apart.</span>
-              </div>
-            </div>
-            <div style="border: 0.5px solid var(--border); overflow: hidden;">
-              <div style="height: 80px; background: linear-gradient(90deg, #52F756 0%, #174BEB 50%, #FF3333 100%);"></div>
-              <div style="padding: 12px; display: flex; align-items: center; gap: 8px;">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#FF3333" stroke-width="1.5" stroke-linecap="round"></path></svg>
-                <span style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">Avoid gradients with more than two colors.</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -890,7 +811,7 @@
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Font&nbsp; &nbsp;&nbsp;</span>Söhne</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Weight&nbsp; &nbsp;&nbsp;</span>Kräftig</div>
                     <div style="font-size: 11px"><span style="color: var(--text-primary); font-weight: 500;">Size</span><span style="color: rgb(27, 31, 35); font-size: 10px;">&nbsp; &nbsp;&nbsp;</span>44 or 32pt</div>
-                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span>0.9</div>
+                    <div><span style="color: var(--text-primary); font-weight: 500;">Spacing&nbsp;</span><span style="color: rgb(246, 248, 250);"></span>0.9</div>
                   </div>
                 </div>
                 <div style="padding: 24px; border-bottom: 0.5px solid var(--border);">
@@ -1590,7 +1511,6 @@ class Component extends DCLogic {
       { label: 'Black', weight: 900 },
     ], this.state.pretendardWeight);
 
-    // Secondary gradients
     const secondaryGradients = [
       { name: 'Blue-1', desc: 'Blue on Dark Blue', css: 'linear-gradient(180deg, #2020F5 0%, #0A0A8A 100%)', labelColor: '#F6F8FA' },
       { name: 'Yellow-1', desc: 'Yellow on Dark Yellow', css: 'linear-gradient(180deg, #D4B820 0%, #8A7510 100%)', labelColor: '#F6F8FA' },
@@ -1661,8 +1581,6 @@ class Component extends DCLogic {
         if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
       },
       ...this.getColorSpecVals(),
-      primaryGradients,
-      monoGradients,
       overviewCards,
       showHome: activePage === 'home',
       showLogo: activePage === 'logo',
@@ -1687,9 +1605,6 @@ class Component extends DCLogic {
       selectSohneW: (e) => { const w = parseInt(e.currentTarget.dataset.weight); if (w) this.setState({ sohneWeight: w }); },
       selectMonoW: (e) => { const w = parseInt(e.currentTarget.dataset.weight); if (w) this.setState({ monoWeight: w }); },
       selectPretendardW: (e) => { const w = parseInt(e.currentTarget.dataset.weight); if (w) this.setState({ pretendardWeight: w }); },
-      // Gradients
-      secondaryGradients,
-      hueGradients,
       ...this.getVisualTabVals(),
       ...this.getProductTabVals(),
       ...this.getIconVals(),
@@ -1993,16 +1908,13 @@ class Component extends DCLogic {
       sw('#F6F8FA', '#1B1F23', 'Gray 10', '#F6F8FA'),
       sw('#D9E4ED', '#1B1F23', 'Gray 30', '#D9E4ED'),
       sw('#BBC4CF', '#1B1F23', 'Gray 50', '#BBC4CF'),
+      sw('#8A94A0', '#FFFFFF', 'Gray 60', '#8A94A0'),
       sw('#24292F', '#F6F8FA', 'Gray 80', '#24292F'),
       sw('#1B1F23', '#F6F8FA', 'Gray 90', '#1B1F23'),
       sw('#000000', '#F6F8FA', 'Black', '#000000')
     ];
     const specGreens = [
-      sw('#D4FFD5', '#1B1F23', 'Green 10', '#D4FFD5'),
-      sw('#7AE87C', '#1B1F23', 'Green 30', '#7AE87C'),
-      sw('#52F756', '#1B1F23', 'Green 50', '#52F756'),
-      sw('#1A8C1E', '#FFFFFF', 'Green 70', '#1A8C1E'),
-      sw('#0B3D0B', '#F6F8FA', 'Green 90', '#0B3D0B')
+      sw('#52F756', '#1B1F23', 'Neon Green', '#52F756')
     ];
     const mkRow = (name, colors) => ({
       name,
